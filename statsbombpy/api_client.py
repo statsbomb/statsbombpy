@@ -16,12 +16,18 @@ from statsbombpy.config import (
 install_cache(CACHED_CALLS_PATH, backend="sqlite", expire_after=CACHED_CALLS_SECS)
 
 
-def get_resource(url, creds):
+def get_resource(url: str, creds: dict):
     auth = req.auth.HTTPBasicAuth(creds["user"], creds["passwd"])
-    return req.get(url, auth=auth).json()
+    resp = req.get(url, auth=auth)
+    if resp.status_code != 200:
+        print(f"{url} -> {resp.status_code}")
+        resp = []
+    else:
+        resp = resp.json()
+    return resp
 
 
-def get_competitions(creds=DEFAULT_CREDS):
+def get_competitions(creds: dict = DEFAULT_CREDS) -> list:
     url = f"{HOSTNAME}/api/{VERSIONS['competitions']}/competitions"
     competitions = {}
     for c in get_resource(url, creds):
@@ -36,21 +42,28 @@ def get_competitions(creds=DEFAULT_CREDS):
     return competitions
 
 
-def get_matches(competition_id, season_id, creds=DEFAULT_CREDS):
+def get_matches(
+    competition_id: int, season_id: int, creds: dict = DEFAULT_CREDS
+) -> dict:
     url = f"{HOSTNAME}/api/{VERSIONS['matches']}/competitions/{competition_id}/seasons/{season_id}/matches"
-    matches = {}
-    for m in get_resource(url, creds):
-        matches[m['id']] = m
+    matches = {
+        m["match_id"]: m
+        for m in get_resource(url, creds)
+        if m["match_status"] == "available"
+    }
     return matches
 
 
-def get_lineups(match_id, creds=DEFAULT_CREDS):
+def get_lineups(match_id: int, creds: dict = DEFAULT_CREDS) -> dict:
     url = f"{HOSTNAME}/api/{VERSIONS['lineups']}/lineups/{match_id}"
-    lineups = get_resource(url, creds)
+    lineups = {l["team_id"]: l for l in get_resource(url, creds)}
     return lineups
 
 
-def get_events(match_id, creds=DEFAULT_CREDS):
+def get_events(match_id: int, creds=DEFAULT_CREDS) -> dict:
     url = f"{HOSTNAME}/api/{VERSIONS['events']}/events/{match_id}"
-    events = get_resource(url, creds)
+    events = {}
+    for e in get_resource(url, creds):
+        e["match_id"] = match_id
+        events[e["id"]] = e
     return events

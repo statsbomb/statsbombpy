@@ -2,7 +2,12 @@ from setuptools import setup
 
 
 setup(
-    name='statasbombpy',
-    version='0.1',
-    packages=['statsbombpy'],
+    name="statsbombpy",
+    version="0.1",
+    description="easily stream StatsBomb data into Python",
+    url="https://github.com/statsbomb/statsbombpy",
+    author="StatsBomb",
+    author_email="support@statsbombservices.com",
+    packages=["statsbombpy"],
+    install_requires=["nose2", "pandas", "requests", "requests-cache"],
 )
