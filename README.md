@@ -6,14 +6,14 @@
 
 #### Updated January 9, 2020.
 
-This repository is a Python package to easily stream StatsBomb data into Python using your log in credentials for the API or free data from our GitHub page. **API access is for paying customers only**
+This repository is a Python package to easily stream StatsBomb data into Python using your log in credentials for the API or free data from our GitHub page. Only **API access is for paying customers only**
 
-# Installation Instructions:
+## Installation Instructions:
 
-`git clone https://github.com/statsbomb/statsbombpy.git`
-`cd statsbombpy`
+`git clone https://github.com/statsbomb/statsbombpy.git`  
+`cd statsbombpy`  
 `pip install .`
 
-# Running the tests
+## Running the tests
 
 `nose2 -v --pretty-assert`

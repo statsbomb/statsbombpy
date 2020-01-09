@@ -11,7 +11,7 @@ def flatten_event(event):
 
 
 def is_relevant(event, filters):
-    return all(event[1].get("type", {}).get("name") == v for k, v in filters.items())
+    return all(event.get("type", {}).get("name") == v for k, v in filters.items())
 
 
 def reduce_events(all_events: dict, fmt: str) -> dict:

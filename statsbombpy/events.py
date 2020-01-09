@@ -15,6 +15,7 @@ from statsbombpy.api_client import (
 
 def get_events(
     match_id: int,
+    split=False,
     filters: dict = {},
     fmt: str = "dataframe",
     flatten=False,
@@ -33,11 +34,14 @@ def get_events(
     if fmt == "dataframe":
         for ev_type, evs in events.items():
             events[ev_type] = pd.DataFrame(evs)
+        if split is False:
+            events = pd.concat([*events.values()], axis=0, ignore_index=True, sort=True)
     return events
 
 
 def get_competition_events(
     competition: dict,
+    split=False,
     filters: dict = {},
     fmt: str = "dataframe",
     creds: dict = DEFAULT_CREDS,
@@ -52,10 +56,16 @@ def get_competition_events(
     matches = get_matches(c["competition_id"], c["season_id"], creds)
 
     get_events_call = partial(
-        get_events, filters=filters, fmt="json", flatten=fmt == "dataframe", creds=creds
+        get_events,
+        split=True,
+        filters=filters,
+        fmt="json",
+        flatten=fmt == "dataframe",
+        creds=creds,
     )
     with Pool(PARALLELL_CALLS_NUM) as p:
         matches_events = p.map(get_events_call, matches)
-
     events = reduce_events(matches_events, fmt)
+    if fmt == "dataframe" and split is False:
+        events = pd.concat([*events.values()], axis=0, ignore_index=True, sort=True)
     return events
