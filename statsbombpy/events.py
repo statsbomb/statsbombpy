@@ -15,10 +15,10 @@ from statsbombpy.api_client import (
 
 def get_events(
     match_id: int,
-    split=False,
+    split: bool = False,
     filters: dict = {},
     fmt: str = "dataframe",
-    flatten=False,
+    flatten: bool = False,
     creds: dict = DEFAULT_CREDS,
 ) -> dict:
 
@@ -41,7 +41,7 @@ def get_events(
 
 def get_competition_events(
     competition: dict,
-    split=False,
+    split: bool = False,
     filters: dict = {},
     fmt: str = "dataframe",
     creds: dict = DEFAULT_CREDS,

@@ -8,8 +8,6 @@ DEFAULT_CREDS = {"user": os.environ.get("SB_USERNAME"), "passwd": os.environ.get
 
 HOSTNAME = "https://data.statsbombservices.com"
 
-OPEN_DATA_COMPS = "https://raw.githubusercontent.com/statsbomb/open-data/master/data/competitions.json"
-
 PARALLELL_CALLS_NUM = 4
 
 VERSIONS = {"competitions": "v2", "matches": "v3", "lineups": "v2", "events": "v5"}
