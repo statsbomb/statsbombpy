@@ -23,17 +23,14 @@ This repository is a Python package to easily stream StatsBomb data into Python 
 
 ## Authentication
 
-### Environment Variables
-Authentication can be easily done by setting environment variables named `SB_USERNAME` and `SB_PASSWORD` to your login credentials.
+#### Environment Variables
+Authentication can be done by setting environment variables named `SB_USERNAME` and `SB_PASSWORD` to your login credentials.
 
-### Manual Calls
-Alternatively, if you don't want to use environment variables, all functions accept an argument `creds`, where you can pass your login credentials `{"user": "", "passwd": ""}`
+#### Manual Calls
+Alternatively, if you don't want to use environment variables, all functions accept an argument `creds` to pass your login credentials in the format `{"user": "", "passwd": ""}`
 
 
-## Open Data
-StatsBomb's open data can be accessed without the need of authentication.
-
-## Basic Usage
+## Usage
 
 ```
 from statsbombpy.base import get_competitions, get_matches, get_lineups
@@ -43,7 +40,6 @@ from statsbombpy.events import get_competition_events, get_events
 ```
 get_competitions()
 ```
-
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -121,7 +117,6 @@ get_competitions()
 ```
 get_matches(competition_id=9, season_id=42)
 ```
-
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -137,11 +132,13 @@ get_matches(competition_id=9, season_id=42)
       <th>away_score</th>
       <th>match_status</th>
       <th>last_updated</th>
-      <th>metadata</th>
       <th>match_week</th>
       <th>competition_stage</th>
       <th>stadium</th>
       <th>referee</th>
+      <th>data_version</th>
+      <th>shot_fidelity_version</th>
+      <th>xy_fidelity_version</th>
     </tr>
   </thead>
   <tbody>
@@ -158,11 +155,13 @@ get_matches(competition_id=9, season_id=42)
       <td>0</td>
       <td>available</td>
       <td>2019-12-17T09:50:17.558</td>
-      <td>{'data_version': '1.1.0', 'shot_fidelity_version': '2', 'xy_fidelity_version': '2'}</td>
       <td>15</td>
-      <td>{'id': 1, 'name': 'Regular Season'}</td>
-      <td>{'id': 370, 'name': 'VELTINS-Arena', 'country': {'id': 85, 'name': 'Germany'}}</td>
-      <td>{'id': 241, 'name': 'F. Zwayer', 'country': {'id': 112, 'name': 'Italy'}}</td>
+      <td>Regular Season</td>
+      <td>VELTINS-Arena</td>
+      <td>F. Zwayer</td>
+      <td>1.1.0</td>
+      <td>2</td>
+      <td>2</td>
     </tr>
     <tr>
       <th>1</th>
@@ -177,11 +176,13 @@ get_matches(competition_id=9, season_id=42)
       <td>1</td>
       <td>available</td>
       <td>2019-12-16T23:09:16.168756</td>
-      <td>{'data_version': '1.1.0', 'shot_fidelity_version': '2', 'xy_fidelity_version': '2'}</td>
       <td>3</td>
-      <td>{'id': 1, 'name': 'Regular Season'}</td>
-      <td>{'id': 4850, 'name': 'Commerzbank-Arena'}</td>
-      <td>{'id': 243, 'name': 'F. Willenborg', 'country': {'id': 112, 'name': 'Italy'}}</td>
+      <td>Regular Season</td>
+      <td>Commerzbank-Arena</td>
+      <td>F. Willenborg</td>
+      <td>1.1.0</td>
+      <td>2</td>
+      <td>2</td>
     </tr>
     <tr>
       <th>2</th>
@@ -196,11 +197,13 @@ get_matches(competition_id=9, season_id=42)
       <td>1</td>
       <td>available</td>
       <td>2019-12-17T15:52:17.843</td>
-      <td>{'data_version': '1.1.0', 'shot_fidelity_version': '2', 'xy_fidelity_version': '2'}</td>
       <td>15</td>
-      <td>{'id': 1, 'name': 'Regular Season'}</td>
-      <td>{'id': 4849, 'name': 'VOLKSWAGEN ARENA'}</td>
-      <td>{'id': 226, 'name': 'F. Brych', 'country': {'id': 112, 'name': 'Italy'}}</td>
+      <td>Regular Season</td>
+      <td>VOLKSWAGEN ARENA</td>
+      <td>F. Brych</td>
+      <td>1.1.0</td>
+      <td>2</td>
+      <td>2</td>
     </tr>
     <tr>
       <th>3</th>
@@ -215,11 +218,13 @@ get_matches(competition_id=9, season_id=42)
       <td>0</td>
       <td>available</td>
       <td>2019-12-17T17:43:18.285</td>
-      <td>{'data_version': '1.1.0', 'shot_fidelity_version': '2', 'xy_fidelity_version': '2'}</td>
       <td>15</td>
-      <td>{'id': 1, 'name': 'Regular Season'}</td>
-      <td>{'id': 367, 'name': 'Olympiastadion Berlin', 'country': {'id': 85, 'name': 'Germany'}}</td>
-      <td>{'id': 243, 'name': 'F. Willenborg', 'country': {'id': 112, 'name': 'Italy'}}</td>
+      <td>Regular Season</td>
+      <td>Olympiastadion Berlin</td>
+      <td>F. Willenborg</td>
+      <td>1.1.0</td>
+      <td>2</td>
+      <td>2</td>
     </tr>
     <tr>
       <th>4</th>
@@ -234,19 +239,21 @@ get_matches(competition_id=9, season_id=42)
       <td>0</td>
       <td>available</td>
       <td>2019-12-23T18:02:36.454</td>
-      <td>{'data_version': '1.1.0', 'shot_fidelity_version': '2', 'xy_fidelity_version': '2'}</td>
       <td>17</td>
-      <td>{'id': 1, 'name': 'Regular Season'}</td>
-      <td>{'id': 4867, 'name': 'Allianz Arena'}</td>
-      <td>{'id': 237, 'name': 'C. Dingert', 'country': {'id': 112, 'name': 'Italy'}}</td>
+      <td>Regular Season</td>
+      <td>Allianz Arena</td>
+      <td>C. Dingert</td>
+      <td>1.1.0</td>
+      <td>2</td>
+      <td>2</td>
     </tr>
   </tbody>
 </table>
 
+
 ```
 get_lineups(303299)["Eintracht Frankfurt"]
 ```
-
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -273,7 +280,7 @@ get_lineups(303299)["Eintracht Frankfurt"]
       <td>182.0</td>
       <td>72.0</td>
       <td>18</td>
-      <td>{'id': 140, 'name': 'Mali'}</td>
+      <td>Mali</td>
     </tr>
     <tr>
       <th>1</th>
@@ -285,7 +292,7 @@ get_lineups(303299)["Eintracht Frankfurt"]
       <td>184.0</td>
       <td>82.0</td>
       <td>10</td>
-      <td>{'id': 203, 'name': 'Serbia'}</td>
+      <td>Serbia</td>
     </tr>
     <tr>
       <th>2</th>
@@ -297,7 +304,7 @@ get_lineups(303299)["Eintracht Frankfurt"]
       <td>190.0</td>
       <td>NaN</td>
       <td>2</td>
-      <td>{'id': 78, 'name': 'France'}</td>
+      <td>France</td>
     </tr>
     <tr>
       <th>3</th>
@@ -309,7 +316,7 @@ get_lineups(303299)["Eintracht Frankfurt"]
       <td>184.0</td>
       <td>83.0</td>
       <td>13</td>
-      <td>{'id': 15, 'name': 'Austria'}</td>
+      <td>Austria</td>
     </tr>
     <tr>
       <th>4</th>
@@ -321,260 +328,14 @@ get_lineups(303299)["Eintracht Frankfurt"]
       <td>175.0</td>
       <td>66.0</td>
       <td>11</td>
-      <td>{'id': 203, 'name': 'Serbia'}</td>
+      <td>Serbia</td>
     </tr>
   </tbody>
 </table>
 
 
 ```
-get_events(match_id=303299)
-```
-
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>ball_receipt</th>
-      <th>ball_recovery</th>
-      <th>block</th>
-      <th>carry</th>
-      <th>clearance</th>
-      <th>counterpress</th>
-      <th>dribble</th>
-      <th>duel</th>
-      <th>duration</th>
-      <th>foul_committed</th>
-      <th>foul_won</th>
-      <th>goalkeeper</th>
-      <th>id</th>
-      <th>index</th>
-      <th>injury_stoppage</th>
-      <th>interception</th>
-      <th>location</th>
-      <th>match_id</th>
-      <th>minute</th>
-      <th>off_camera</th>
-      <th>out</th>
-      <th>pass</th>
-      <th>period</th>
-      <th>play_pattern</th>
-      <th>player</th>
-      <th>position</th>
-      <th>possession</th>
-      <th>possession_team</th>
-      <th>related_events</th>
-      <th>second</th>
-      <th>shot</th>
-      <th>substitution</th>
-      <th>team</th>
-      <th>timestamp</th>
-      <th>type</th>
-      <th>under_pressure</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>10</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>1.613804</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>4657d086-61ba-47be-b9e0-4225dda2cba1</td>
-      <td>17</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>[34.5, 37.3]</td>
-      <td>303299</td>
-      <td>0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>{'recipient': {'id': 20770, 'name': 'Ozan Muhammed Kabak'}, 'length': 27.502909, 'angle': 1.5853407, 'height': {'id': 1, 'name': 'Ground Pass'}, 'end_location': [34.1, 64.8], 'body_part': {'id': 40, 'name': 'Right Foot'}}</td>
-      <td>1</td>
-      <td>From Kick Off</td>
-      <td>Omar Mascarell González</td>
-      <td>Right Defensive Midfield</td>
-      <td>2</td>
-      <td>Schalke 04</td>
-      <td>[12d711dd-171f-4a3d-97f1-79d38acfafc9]</td>
-      <td>10</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>Schalke 04</td>
-      <td>00:00:10.828</td>
-      <td>Pass</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>11</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>2.520875</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>986c8b58-9d53-4822-b416-bbb32aa60e34</td>
-      <td>20</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>[34.1, 64.8]</td>
-      <td>303299</td>
-      <td>0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>{'recipient': {'id': 20662, 'name': 'Alexander Nübel'}, 'length': 29.560953, 'angle': -2.6749194, 'height': {'id': 1, 'name': 'Ground Pass'}, 'end_location': [7.7, 51.5], 'body_part': {'id': 40, 'name': 'Right Foot'}}</td>
-      <td>1</td>
-      <td>From Kick Off</td>
-      <td>Ozan Muhammed Kabak</td>
-      <td>Right Center Back</td>
-      <td>2</td>
-      <td>Schalke 04</td>
-      <td>[5baa0c48-fd69-4318-be89-a0134fe98cb3]</td>
-      <td>12</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>Schalke 04</td>
-      <td>00:00:12.444</td>
-      <td>Pass</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>12</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>2.945589</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>f87aaab4-7e41-4c23-9f3a-27e31cb5a2e1</td>
-      <td>23</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>[7.8, 51.5]</td>
-      <td>303299</td>
-      <td>0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>{'recipient': {'id': 8526, 'name': 'Weston McKennie'}, 'length': 39.134254, 'angle': -1.3518503, 'height': {'id': 1, 'name': 'Ground Pass'}, 'end_location': [16.3, 13.3], 'body_part': {'id': 40, 'name': 'Right Foot'}}</td>
-      <td>1</td>
-      <td>From Kick Off</td>
-      <td>Alexander Nübel</td>
-      <td>Goalkeeper</td>
-      <td>2</td>
-      <td>Schalke 04</td>
-      <td>[f11b171e-c645-4348-903c-6c7d0b65caa6]</td>
-      <td>15</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>Schalke 04</td>
-      <td>00:00:15.740</td>
-      <td>Pass</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>13</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>1.378187</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>c528c517-0cd5-4594-9803-ed55ef836296</td>
-      <td>27</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>[18.8, 4.4]</td>
-      <td>303299</td>
-      <td>0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>{'recipient': {'id': 8504, 'name': 'Bastian Oczipka'}, 'length': 10.245975, 'angle': -0.32792333, 'height': {'id': 1, 'name': 'Ground Pass'}, 'end_location': [28.5, 1.1], 'body_part': {'id': 40, 'name': 'Right Foot'}}</td>
-      <td>1</td>
-      <td>From Kick Off</td>
-      <td>Weston McKennie</td>
-      <td>Left Center Back</td>
-      <td>2</td>
-      <td>Schalke 04</td>
-      <td>[6349045d-bbb0-4583-8ee9-b7cb36a4f1ae, b6cbb6a8-4e51-4444-bc22-6e146b6cb926]</td>
-      <td>20</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>Schalke 04</td>
-      <td>00:00:20.439</td>
-      <td>Pass</td>
-      <td>True</td>
-    </tr>
-    <tr>
-      <th>14</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>1.940027</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>65e75211-9ae0-4acc-84bd-4e7526725ba4</td>
-      <td>31</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>[24.2, 2.4]</td>
-      <td>303299</td>
-      <td>0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>{'recipient': {'id': 20662, 'name': 'Alexander Nübel'}, 'length': 26.402462, 'angle': 2.3106496, 'height': {'id': 1, 'name': 'Ground Pass'}, 'end_location': [6.4, 21.9], 'body_part': {'id': 40, 'name': 'Right Foot'}}</td>
-      <td>1</td>
-      <td>From Kick Off</td>
-      <td>Bastian Oczipka</td>
-      <td>Left Back</td>
-      <td>2</td>
-      <td>Schalke 04</td>
-      <td>[1198e2ba-47a0-401a-89e7-3871aef2f150]</td>
-      <td>22</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>Schalke 04</td>
-      <td>00:00:22.657</td>
-      <td>Pass</td>
-      <td>NaN</td>
-    </tr>
-  </tbody>
-
-
-</table>
-
-```
+events = get_events(match_id=303299)  # for storing all events on a single dataframe 
 grouped_events = get_events(match_id=303299, split=True)
 grouped_events["Dribble"]
 ```
@@ -724,8 +485,148 @@ bundesliga = {
      "season": "2019/2020",
      "gender": "male"
 }
-get_competition_events(competition=bundesliga)
-get_competition_events(competition=bundesliga, split=True)
+
+events = get_competition_events(competition=bundesliga) # for storing all events on a single dataframe
+grouped_events = get_competition_events(competition=bundesliga, split=True)
+grouped_events["Dribble"]
 ```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>index</th>
+      <th>period</th>
+      <th>timestamp</th>
+      <th>minute</th>
+      <th>second</th>
+      <th>type</th>
+      <th>possession</th>
+      <th>possession_team</th>
+      <th>play_pattern</th>
+      <th>team</th>
+      <th>player</th>
+      <th>position</th>
+      <th>location</th>
+      <th>duration</th>
+      <th>under_pressure</th>
+      <th>related_events</th>
+      <th>dribble</th>
+      <th>match_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>b190c01f-ad24-468c-8241-f955b91d996c</td>
+      <td>131</td>
+      <td>1</td>
+      <td>00:02:08.032</td>
+      <td>2</td>
+      <td>8</td>
+      <td>Dribble</td>
+      <td>4</td>
+      <td>Schalke 04</td>
+      <td>Regular Play</td>
+      <td>Schalke 04</td>
+      <td>Daniel Caligiuri</td>
+      <td>Right Wing</td>
+      <td>[110.2, 62.9]</td>
+      <td>0.000000</td>
+      <td>True</td>
+      <td>[60f822df-5747-4787-b0f9-45bf5217eb8a]</td>
+      <td>{'outcome': {'id': 8, 'name': 'Complete'}}</td>
+      <td>303299</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>4d773c92-f89f-491e-b3e0-3a1d2e863148</td>
+      <td>399</td>
+      <td>1</td>
+      <td>00:08:48.623</td>
+      <td>8</td>
+      <td>48</td>
+      <td>Dribble</td>
+      <td>18</td>
+      <td>Schalke 04</td>
+      <td>Regular Play</td>
+      <td>Schalke 04</td>
+      <td>Amine Harit</td>
+      <td>Center Attacking Midfield</td>
+      <td>[88.9, 22.7]</td>
+      <td>0.000000</td>
+      <td>True</td>
+      <td>[93d829df-eea7-416b-95aa-7593828cfade]</td>
+      <td>{'outcome': {'id': 8, 'name': 'Complete'}}</td>
+      <td>303299</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>8a78dce4-998a-4e81-902c-9f3957cebc9d</td>
+      <td>460</td>
+      <td>1</td>
+      <td>00:13:30.202</td>
+      <td>13</td>
+      <td>30</td>
+      <td>Dribble</td>
+      <td>23</td>
+      <td>Schalke 04</td>
+      <td>Regular Play</td>
+      <td>Schalke 04</td>
+      <td>Daniel Caligiuri</td>
+      <td>Right Wing</td>
+      <td>[99.5, 68.1]</td>
+      <td>0.007309</td>
+      <td>True</td>
+      <td>[772c5aae-e34e-4364-8a98-7caf7636c90b]</td>
+      <td>{'outcome': {'id': 9, 'name': 'Incomplete'}}</td>
+      <td>303299</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>e44d0122-2f2e-4771-820d-cc326a8b0379</td>
+      <td>496</td>
+      <td>1</td>
+      <td>00:14:10.135</td>
+      <td>14</td>
+      <td>10</td>
+      <td>Dribble</td>
+      <td>24</td>
+      <td>Schalke 04</td>
+      <td>From Throw In</td>
+      <td>Schalke 04</td>
+      <td>Suat Serdar</td>
+      <td>Left Defensive Midfield</td>
+      <td>[41.2, 31.7]</td>
+      <td>0.000000</td>
+      <td>True</td>
+      <td>[4de4039f-7efc-461b-b7d6-27c32ec2cd2a]</td>
+      <td>{'outcome': {'id': 8, 'name': 'Complete'}}</td>
+      <td>303299</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>9555afbd-d838-42c9-8f80-be3cd09e4c4a</td>
+      <td>793</td>
+      <td>1</td>
+      <td>00:20:18.409</td>
+      <td>20</td>
+      <td>18</td>
+      <td>Dribble</td>
+      <td>33</td>
+      <td>Eintracht Frankfurt</td>
+      <td>Regular Play</td>
+      <td>Eintracht Frankfurt</td>
+      <td>Timothy Chandler</td>
+      <td>Right Wing Back</td>
+      <td>[81.8, 75.7]</td>
+      <td>0.000000</td>
+      <td>True</td>
+      <td>[a5c88cee-6319-4c25-91cd-8a028d8dbfbf]</td>
+      <td>{'outcome': {'id': 9, 'name': 'Incomplete'}}</td>
+      <td>303299</td>
+    </tr>
+  </tbody>
+</table>
 
 
