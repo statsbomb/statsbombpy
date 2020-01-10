@@ -11,7 +11,11 @@ DEFAULT_CREDS = {
 
 HOSTNAME = "https://data.statsbombservices.com"
 
-OPEN_DATA_SPEC = "https://raw.githubusercontent.com/statsbomb/open-data/master/data/competitions.json"
+OPEN_DATA_PATHS = {
+    "competitions": "https://raw.githubusercontent.com/statsbomb/open-data/master/data/competitions.json",
+    "matches": "",
+    "events": "",
+}
 
 PARALLELL_CALLS_NUM = 4
 

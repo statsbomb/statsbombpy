@@ -2,13 +2,15 @@ import pandas as pd
 import requests as req
 
 from statsbombpy import api_client
-from statsbombpy.config import DEFAULT_CREDS, OPEN_DATA_SPEC
+from statsbombpy import open_data
+from statsbombpy.config import DEFAULT_CREDS
 
 
 def get_competitions(fmt="dataframe", creds: dict = DEFAULT_CREDS):
-    competitions = api_client.get_competitions(creds)
-    if len(competitions) == 0:
-        competitions = req.get(OPEN_DATA_SPEC).json()
+    if api_client.has_auth(creds) is True:
+        competitions = api_client.get_competitions(creds)
+    else:
+        competitions = open_data.get_competitions()
     if fmt == "dataframe":
         if isinstance(competitions, dict):
             competitions = competitions.values()
@@ -31,8 +33,8 @@ def get_matches(
             matches[col] = matches[col].apply(
                 lambda x: x["name"] if not pd.isna(x) else x
             )
-        metadata = matches.pop('metadata')
-        for k in ['data_version', 'shot_fidelity_version', 'xy_fidelity_version']:
+        metadata = matches.pop("metadata")
+        for k in ["data_version", "shot_fidelity_version", "xy_fidelity_version"]:
             matches[k] = metadata.apply(lambda x: x.get(k))
     return matches
 
@@ -43,7 +45,7 @@ def get_lineups(match_id, fmt="dataframe", creds: dict = DEFAULT_CREDS):
         lineups_ = {}
         for l in lineups.values():
             lineup = pd.DataFrame(l["lineup"])
-            lineup['country'] = lineup.country.apply(lambda c: c['name'])
-            lineups_[l['team_name']] = lineup
+            lineup["country"] = lineup.country.apply(lambda c: c["name"])
+            lineups_[l["team_name"]] = lineup
             lineups = lineups_
     return lineups

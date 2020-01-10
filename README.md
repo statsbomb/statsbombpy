@@ -252,7 +252,7 @@ get_matches(competition_id=9, season_id=42)
 
 
 ```
-get_lineups(303299)["Eintracht Frankfurt"]
+get_lineups(match_id=303299)["Eintracht Frankfurt"]
 ```
 <table border="1" class="dataframe">
   <thead>

@@ -16,6 +16,9 @@ from statsbombpy.config import (
 install_cache(CACHED_CALLS_PATH, backend="sqlite", expire_after=CACHED_CALLS_SECS)
 
 
+def has_auth(creds):
+    pass
+
 def get_resource(url: str, creds: dict) -> list:
     auth = req.auth.HTTPBasicAuth(creds["user"], creds["passwd"])
     resp = req.get(url, auth=auth)
