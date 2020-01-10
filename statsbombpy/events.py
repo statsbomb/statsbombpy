@@ -20,7 +20,7 @@ def get_events(
     fmt: str = "dataframe",
     flatten: bool = False,
     creds: dict = DEFAULT_CREDS,
-) -> dict:
+) -> (pd.DataFrame, dict):
 
     events = defaultdict(list)
     for ev in query_api_events(match_id, creds).values():
@@ -45,7 +45,7 @@ def get_competition_events(
     filters: dict = {},
     fmt: str = "dataframe",
     creds: dict = DEFAULT_CREDS,
-) -> dict:
+) -> (pd.DataFrame, dict):
 
     c = get_competitions(creds)[
         competition["country"],

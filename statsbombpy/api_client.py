@@ -1,5 +1,6 @@
 import os
 
+import pandas as pd
 import requests as req
 
 from requests_cache import install_cache
@@ -7,7 +8,6 @@ from requests_cache import install_cache
 from statsbombpy.config import (
     CACHED_CALLS_SECS,
     CACHED_CALLS_PATH,
-    DEFAULT_CREDS,
     HOSTNAME,
     VERSIONS,
 )
@@ -16,7 +16,7 @@ from statsbombpy.config import (
 install_cache(CACHED_CALLS_PATH, backend="sqlite", expire_after=CACHED_CALLS_SECS)
 
 
-def get_resource(url: str, creds: dict):
+def get_resource(url: str, creds: dict) -> list:
     auth = req.auth.HTTPBasicAuth(creds["user"], creds["passwd"])
     resp = req.get(url, auth=auth)
     if resp.status_code != 200:
@@ -27,7 +27,7 @@ def get_resource(url: str, creds: dict):
     return resp
 
 
-def get_competitions(creds: dict = DEFAULT_CREDS) -> list:
+def get_competitions(creds: dict) -> dict:
     url = f"{HOSTNAME}/api/{VERSIONS['competitions']}/competitions"
     competitions = {}
     for c in get_resource(url, creds):
@@ -39,28 +39,28 @@ def get_competitions(creds: dict = DEFAULT_CREDS) -> list:
                 c["competition_gender"],
             )
         ] = c
+
     return competitions
 
 
-def get_matches(
-    competition_id: int, season_id: int, creds: dict = DEFAULT_CREDS
-) -> dict:
+def get_matches(competition_id: int, season_id: int, creds: dict) -> dict:
     url = f"{HOSTNAME}/api/{VERSIONS['matches']}/competitions/{competition_id}/seasons/{season_id}/matches"
     matches = {
         m["match_id"]: m
         for m in get_resource(url, creds)
         if m["match_status"] == "available"
     }
+
     return matches
 
 
-def get_lineups(match_id: int, creds: dict = DEFAULT_CREDS) -> dict:
+def get_lineups(match_id: int, creds: dict) -> dict:
     url = f"{HOSTNAME}/api/{VERSIONS['lineups']}/lineups/{match_id}"
     lineups = {l["team_id"]: l for l in get_resource(url, creds)}
     return lineups
 
 
-def get_events(match_id: int, creds=DEFAULT_CREDS) -> dict:
+def get_events(match_id: int, creds: dict) -> dict:
     url = f"{HOSTNAME}/api/{VERSIONS['events']}/events/{match_id}"
     events = {}
     for e in get_resource(url, creds):
