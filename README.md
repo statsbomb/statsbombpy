@@ -498,7 +498,7 @@ bundesliga = {
      "gender": "male"
 }
 
-events = get_competition_events(competition=bundesliga) # if you want to store all events in a given match on a single dataframe
+events = get_competition_events(competition=bundesliga) # if you want to store all events in a given competition on a single dataframe
 
 grouped_events = get_competition_events(competition=bundesliga, split=True)
 grouped_events["dribbles"]
