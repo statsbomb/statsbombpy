@@ -5,6 +5,8 @@ import requests as req
 
 from requests_cache import install_cache
 
+import statsbombpy.entities as ents
+
 from statsbombpy.config import (
     CACHED_CALLS_SECS,
     CACHED_CALLS_PATH,
@@ -17,7 +19,11 @@ install_cache(CACHED_CALLS_PATH, backend="sqlite", expire_after=CACHED_CALLS_SEC
 
 
 def has_auth(creds):
-    pass
+    if creds.get("user") in [None, ""] or creds.get("passwd") in [None, ""]:
+        print("credentials were not supplied. open data access only")
+        return False
+    return True
+
 
 def get_resource(url: str, creds: dict) -> list:
     auth = req.auth.HTTPBasicAuth(creds["user"], creds["passwd"])
@@ -32,41 +38,27 @@ def get_resource(url: str, creds: dict) -> list:
 
 def get_competitions(creds: dict) -> dict:
     url = f"{HOSTNAME}/api/{VERSIONS['competitions']}/competitions"
-    competitions = {}
-    for c in get_resource(url, creds):
-        competitions[
-            (
-                c["country_name"],
-                c["competition_name"],
-                c["season_name"],
-                c["competition_gender"],
-            )
-        ] = c
-
+    competitions = get_resource(url, creds)
+    competitions = ents.competitions(competitions)
     return competitions
 
 
 def get_matches(competition_id: int, season_id: int, creds: dict) -> dict:
     url = f"{HOSTNAME}/api/{VERSIONS['matches']}/competitions/{competition_id}/seasons/{season_id}/matches"
-    matches = {
-        m["match_id"]: m
-        for m in get_resource(url, creds)
-        if m["match_status"] == "available"
-    }
-
+    matches = get_resource(url, creds)
+    matches = ents.matches(matches)
     return matches
 
 
 def get_lineups(match_id: int, creds: dict) -> dict:
     url = f"{HOSTNAME}/api/{VERSIONS['lineups']}/lineups/{match_id}"
-    lineups = {l["team_id"]: l for l in get_resource(url, creds)}
+    lineups = get_resource(url, creds)
+    lineups = ents.lineups(lineups)
     return lineups
 
 
 def get_events(match_id: int, creds: dict) -> dict:
     url = f"{HOSTNAME}/api/{VERSIONS['events']}/events/{match_id}"
-    events = {}
-    for e in get_resource(url, creds):
-        e["match_id"] = match_id
-        events[e["id"]] = e
+    events = get_resource(url, creds)
+    events = ents.events(events, match_id)
     return events

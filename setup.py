@@ -9,5 +9,5 @@ setup(
     author="StatsBomb",
     author_email="support@statsbombservices.com",
     packages=["statsbombpy"],
-    install_requires=["nose2", "pandas", "requests", "requests-cache"],
+    install_requires=["cashier", "inflect", "nose2", "pandas", "requests", "requests-cache"],
 )

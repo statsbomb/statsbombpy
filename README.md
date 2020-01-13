@@ -4,7 +4,7 @@
 
 #### Support: support@statsbombservices.com
 
-#### Updated January 9, 2020.
+#### Updated January 13, 2020.
 
 This repository is a Python package to easily stream StatsBomb data into Python using your log in credentials for the API or free data from our GitHub page. **API access is for paying customers only**
 
@@ -30,11 +30,14 @@ Authentication can be done by setting environment variables named `SB_USERNAME` 
 Alternatively, if you don't want to use environment variables, all functions accept an argument `creds` to pass your login credentials in the format `{"user": "", "passwd": ""}`
 
 
+## Open Data
+StatsBomb's open data can be accessed without the need of authentication.
+
+
 ## Usage
 
 ```
-from statsbombpy.base import get_competitions, get_matches, get_lineups
-from statsbombpy.events import get_competition_events, get_events
+from statsbombpy.data import get_competitions, get_competition_events, get_events, get_lineups, get_matches
 ```
 
 ```
@@ -335,9 +338,10 @@ get_lineups(match_id=303299)["Eintracht Frankfurt"]
 
 
 ```
-events = get_events(match_id=303299)  # for storing all events on a single dataframe 
+events = get_events(match_id=303299)  # if you want to store all events in a given match on a single dataframe
+
 grouped_events = get_events(match_id=303299, split=True)
-grouped_events["Dribble"]
+grouped_events["dribbles"]
 ```
 <table border="1" class="dataframe">
   <thead>
@@ -486,9 +490,10 @@ bundesliga = {
      "gender": "male"
 }
 
-events = get_competition_events(competition=bundesliga) # for storing all events on a single dataframe
+events = get_competition_events(competition=bundesliga) # if you want to store all events in a given match on a single dataframe
+
 grouped_events = get_competition_events(competition=bundesliga, split=True)
-grouped_events["Dribble"]
+grouped_events["dribbles"]
 ```
 <table border="1" class="dataframe">
   <thead>
