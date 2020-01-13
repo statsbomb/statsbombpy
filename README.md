@@ -33,6 +33,14 @@ Alternatively, if you don't want to use environment variables, all functions acc
 ## Open Data
 StatsBomb's open data can be accessed without the need of authentication.
 
+StatsBomb are committed to sharing new data and research publicly to enhance understanding of the game of Football. We want to actively encourage new research and analysis at all levels. Therefore we have made certain leagues of StatsBomb Data freely available for public use for research projects and genuine interest in football analytics.
+
+StatsBomb are hoping that by making data freely available, we will extend the wider football analytics community and attract new talent to the industry. We would like to collect some basic personal information about users of our data. By [giving us your email address](https://statsbomb.com/resource-centre/), it means we will let you know when we make more data, tutorials and research available. We will store the information in accordance with our Privacy Policy and the GDPR.
+
+#### Terms & Conditions
+Whilst we are keen to share data and facilitate research, we also urge you to be responsible with the data. Please register your details on https://www.statsbomb.com/resource-centre and read our [User Agreement](StatsBomb&#32Public&#32Data&#32User&#32Agreement.pdf) carefully.
+By using this repository, you are agreeing to the user agreement. If you publish, share or distribute any research, analysis or insights based on this data, please state the data source as StatsBomb and use our logo.
+
 
 ## Usage
 
