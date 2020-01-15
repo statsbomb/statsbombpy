@@ -10,11 +10,11 @@ from statsbombpy.config import DEFAULT_CREDS, PARALLELL_CALLS_NUM
 from statsbombpy.helpers import filter_and_group_events, is_relevant, reduce_events
 
 
-def get_competitions(fmt="dataframe", creds: dict = DEFAULT_CREDS):
+def competitions(fmt="dataframe", creds: dict = DEFAULT_CREDS):
     if api_client.has_auth(creds) is True:
-        competitions = api_client.get_competitions(creds)
+        competitions = api_client.competitions(creds)
     else:
-        competitions = public.get_competitions()
+        competitions = public.competitions()
     if fmt == "dataframe":
         if isinstance(competitions, dict):
             competitions = competitions.values()
@@ -22,13 +22,13 @@ def get_competitions(fmt="dataframe", creds: dict = DEFAULT_CREDS):
     return competitions
 
 
-def get_matches(
+def matches(
     competition_id: int, season_id: int, fmt="dataframe", creds: dict = DEFAULT_CREDS
 ):
     if api_client.has_auth(creds) is True:
-        matches = api_client.get_matches(competition_id, season_id, creds)
+        matches = api_client.matches(competition_id, season_id, creds)
     else:
-        matches = public.get_matches(competition_id, season_id)
+        matches = public.matches(competition_id, season_id)
     if fmt == "dataframe":
         matches = pd.DataFrame(matches.values())
         matches["competition"] = matches.competition.apply(
@@ -46,11 +46,11 @@ def get_matches(
     return matches
 
 
-def get_lineups(match_id, fmt="dataframe", creds: dict = DEFAULT_CREDS):
+def lineups(match_id, fmt="dataframe", creds: dict = DEFAULT_CREDS):
     if api_client.has_auth(creds) is True:
-        lineups = api_client.get_lineups(match_id, creds)
+        lineups = api_client.lineups(match_id, creds)
     else:
-        lineups = public.get_lineups(match_id)
+        lineups = public.lineups(match_id)
     if fmt == "dataframe":
         lineups_ = {}
         for l in lineups.values():
@@ -61,7 +61,7 @@ def get_lineups(match_id, fmt="dataframe", creds: dict = DEFAULT_CREDS):
     return lineups
 
 
-def get_events(
+def events(
     match_id: int,
     split: bool = False,
     filters: dict = {},
@@ -71,9 +71,9 @@ def get_events(
 ) -> (pd.DataFrame, dict):
 
     if api_client.has_auth(creds) is True:
-        events = api_client.get_events(match_id, creds)
+        events = api_client.events(match_id, creds)
     else:
-        events = public.get_events(match_id)
+        events = public.events(match_id)
     events = filter_and_group_events(events, filters, fmt, flatten)
 
     if fmt == "dataframe":
@@ -84,7 +84,7 @@ def get_events(
     return events
 
 
-def get_competition_events(
+def competition_events(
     competition: dict,
     split: bool = False,
     filters: dict = {},
@@ -92,16 +92,15 @@ def get_competition_events(
     creds: dict = DEFAULT_CREDS,
 ) -> (pd.DataFrame, dict):
 
-    c = get_competitions(creds)[
+    c = competitions(creds)[
         competition["country"],
         competition["division"],
         competition["season"],
         competition["gender"],
     ]
-    matches = get_matches(c["competition_id"], c["season_id"], creds)
 
-    get_events_call = partial(
-        get_events,
+    events_call = partial(
+        events,
         split=True,
         filters=filters,
         fmt="json",
@@ -109,8 +108,12 @@ def get_competition_events(
         creds=creds,
     )
     with Pool(PARALLELL_CALLS_NUM) as p:
-        matches_events = p.map(get_events_call, matches)
-    events = reduce_events(matches_events, fmt)
+        matches_events = p.map(
+            events_call, matches(c["competition_id"], c["season_id"], creds)
+        )
+    competition_events = reduce_events(matches_events, fmt)
     if fmt == "dataframe" and split is False:
-        events = pd.concat([*events.values()], axis=0, ignore_index=True, sort=True)
-    return events
+        competition_events = pd.concat(
+            [*competition_events.values()], axis=0, ignore_index=True, sort=True
+        )
+    return competition_events

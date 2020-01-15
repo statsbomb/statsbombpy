@@ -45,11 +45,11 @@ By using this repository, you are agreeing to the user agreement. If you publish
 ## Usage
 
 ```
-from statsbombpy.data import get_competitions, get_competition_events, get_events, get_lineups, get_matches
+from statsbombpy import sb
 ```
 
 ```
-get_competitions()
+sb.competitions()
 ```
 <table border="1" class="dataframe">
   <thead>
@@ -126,7 +126,7 @@ get_competitions()
 
 
 ```
-get_matches(competition_id=9, season_id=42)
+sb.matches(competition_id=9, season_id=42)
 ```
 <table border="1" class="dataframe">
   <thead>
@@ -263,7 +263,7 @@ get_matches(competition_id=9, season_id=42)
 
 
 ```
-get_lineups(match_id=303299)["Eintracht Frankfurt"]
+sb.lineups(match_id=303299)["Eintracht Frankfurt"]
 ```
 <table border="1" class="dataframe">
   <thead>
@@ -346,9 +346,9 @@ get_lineups(match_id=303299)["Eintracht Frankfurt"]
 
 
 ```
-events = get_events(match_id=303299)  # if you want to store all events in a given match on a single dataframe
+events = sb.events(match_id=303299)  # if you want to store all events in a given match on a single dataframe
 
-grouped_events = get_events(match_id=303299, split=True)
+grouped_events = sb.events(match_id=303299, split=True)
 grouped_events["dribbles"]
 ```
 <table border="1" class="dataframe">
@@ -498,9 +498,9 @@ bundesliga = {
      "gender": "male"
 }
 
-events = get_competition_events(competition=bundesliga) # if you want to store all events in a given competition on a single dataframe
+events = sb.competition_events(competition=bundesliga) # if you want to store all events in a given competition on a single dataframe
 
-grouped_events = get_competition_events(competition=bundesliga, split=True)
+grouped_events = sb.competition_events(competition=bundesliga, split=True)
 grouped_events["dribbles"]
 ```
 <table border="1" class="dataframe">

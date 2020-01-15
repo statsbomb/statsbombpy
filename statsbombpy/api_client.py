@@ -36,29 +36,30 @@ def get_resource(url: str, creds: dict) -> list:
     return resp
 
 
-def get_competitions(creds: dict) -> dict:
+def competitions(creds: dict) -> dict:
     url = f"{HOSTNAME}/api/{VERSIONS['competitions']}/competitions"
     competitions = get_resource(url, creds)
     competitions = ents.competitions(competitions)
     return competitions
 
 
-def get_matches(competition_id: int, season_id: int, creds: dict) -> dict:
+def matches(competition_id: int, season_id: int, creds: dict) -> dict:
     url = f"{HOSTNAME}/api/{VERSIONS['matches']}/competitions/{competition_id}/seasons/{season_id}/matches"
     matches = get_resource(url, creds)
     matches = ents.matches(matches)
     return matches
 
 
-def get_lineups(match_id: int, creds: dict) -> dict:
+def lineups(match_id: int, creds: dict) -> dict:
     url = f"{HOSTNAME}/api/{VERSIONS['lineups']}/lineups/{match_id}"
     lineups = get_resource(url, creds)
     lineups = ents.lineups(lineups)
     return lineups
 
 
-def get_events(match_id: int, creds: dict) -> dict:
+def events(match_id: int, creds: dict) -> dict:
     url = f"{HOSTNAME}/api/{VERSIONS['events']}/events/{match_id}"
     events = get_resource(url, creds)
     events = ents.events(events, match_id)
     return events
+
