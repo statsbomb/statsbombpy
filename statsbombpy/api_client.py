@@ -4,18 +4,18 @@ import pandas as pd
 import requests as req
 
 from requests_cache import install_cache
+from tempfile import mkdtemp
 
 import statsbombpy.entities as ents
 
 from statsbombpy.config import (
     CACHED_CALLS_SECS,
-    CACHED_CALLS_PATH,
     HOSTNAME,
     VERSIONS,
 )
 
 
-install_cache(CACHED_CALLS_PATH, backend="sqlite", expire_after=CACHED_CALLS_SECS)
+install_cache(mkdtemp(), backend="sqlite", expire_after=CACHED_CALLS_SECS)
 
 
 def has_auth(creds):
