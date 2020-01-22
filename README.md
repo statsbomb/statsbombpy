@@ -491,16 +491,21 @@ grouped_events["dribbles"]
 </table>
 
 ```
-bundesliga = {
-    "country": "Germany",
-    "division": "1. Bundesliga",
-    "season": "2019/2020",
-    "gender": "male"
-}
 
-events = sb.competition_events(competition=bundesliga) # if you want to store all events in a given competition on a single dataframe
+# if you want to store all events in a given competition on a single non tidy dataframe
+events = sb.competition_events(
+    country="Germany",
+    division= "1. Bundesliga",
+    season="2019/2020",
+    gender="male"
+)
 
-grouped_events = sb.competition_events(competition=bundesliga, split=True)
+grouped_events = sb.competition_events(
+    country="Germany",
+    division= "1. Bundesliga",
+    season="2019/2020",
+    split=True
+)
 grouped_events["dribbles"]
 ```
 <table border="1" class="dataframe">

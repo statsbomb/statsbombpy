@@ -11,7 +11,7 @@ class TestBaseGetters(TestCase):
     def test_competitions(self):
         competitions = sb.competitions()
         self.assertIsInstance(competitions, pd.DataFrame)
-    
+
         competitions = sb.competitions(fmt="json")
         self.assertIsInstance(competitions, dict)
 
@@ -21,7 +21,7 @@ class TestBaseGetters(TestCase):
     def test_matches(self):
         matches = sb.matches(competition_id=43, season_id=3)
         self.assertIsInstance(matches, pd.DataFrame)
-    
+
         matches = sb.matches(competition_id=43, season_id=3, fmt="json")
         self.assertIsInstance(matches, dict)
 
@@ -60,19 +60,25 @@ class TestEventGetters(TestCase):
         self.assertIsInstance(events, pd.DataFrame)
 
     def test_competition_events(self):
-        competition = {
-            "country": "England",
-            "division": "FA Cup",
-            "season": "2019/2020",
-            "gender": "male",
-        }
-        events = sb.competition_events(competition)
+        events = sb.competition_events(
+            country="England", division="FA Cup", season="2019/2020", gender="male"
+        )
         self.assertIsInstance(events, pd.DataFrame)
 
-        events = sb.competition_events(competition, split=True)
+        events = sb.competition_events(
+            country="England",
+            division="FA Cup",
+            season="2019/2020",
+            split=True,
+        )
         self.assertIsInstance(events["shots"], pd.DataFrame)
 
-        events = sb.competition_events(competition, fmt="json")
+        events = sb.competition_events(
+            country="England",
+            division="FA Cup",
+            season="2019/2020",
+            fmt="json",
+        )
         self.assertIsInstance(events["shots"], list)
         self.assertIsInstance(events["shots"][0], dict)
 

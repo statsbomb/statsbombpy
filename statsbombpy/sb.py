@@ -85,19 +85,17 @@ def events(
 
 
 def competition_events(
-    competition: dict,
+    country: str,
+    division: str,
+    season: str,
+    gender: str = "male",
     split: bool = False,
     filters: dict = {},
     fmt: str = "dataframe",
     creds: dict = DEFAULT_CREDS,
 ) -> (pd.DataFrame, dict):
 
-    c = competitions(creds)[
-        competition["country"],
-        competition["division"],
-        competition["season"],
-        competition["gender"],
-    ]
+    c = competitions(creds)[country, division, season, gender]
 
     events_call = partial(
         events,
