@@ -4,7 +4,7 @@
 
 #### Support: support@statsbombservices.com
 
-#### Updated January 15, 2020.
+#### Updated September 10, 2020.
 
 This repository is a Python package to easily stream StatsBomb data into Python using your log in credentials for the API or free data from our GitHub page. **API access is for paying customers only**
 
@@ -491,7 +491,6 @@ grouped_events["dribbles"]
 </table>
 
 ```
-
 # if you want to store all events in a given competition on a single non tidy dataframe
 events = sb.competition_events(
     country="Germany",
@@ -648,3 +647,22 @@ grouped_events["dribbles"]
 </table>
 
 
+```
+# alternatively, entities can be accessed as python dictionaries serving as an interface to raw jsons and without performing any preprocessing
+
+sb.competitions(fmt="dict")
+
+sb.matches(competition_id=9, season_id=42, fmt="dict")
+
+sb.lineups(match_id=303299, fmt="dict")
+
+sb.events(303299, fmt="dict")
+
+sb.competition_events(
+    country="Germany",
+    division= "1. Bundesliga",
+    season="2019/2020",
+    gender="male",
+    fmt="dict"
+)
+```

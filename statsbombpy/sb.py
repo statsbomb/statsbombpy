@@ -74,9 +74,9 @@ def events(
         events = api_client.events(match_id, creds)
     else:
         events = public.events(match_id)
-    events = filter_and_group_events(events, filters, fmt, flatten)
 
     if fmt == "dataframe":
+        events = filter_and_group_events(events, filters, fmt, flatten)
         for ev_type, evs in events.items():
             events[ev_type] = pd.DataFrame(evs)
         if split is False:
@@ -97,18 +97,18 @@ def competition_events(
 
     c = competitions(creds)[country, division, season, gender]
 
-    events_call = partial(
-        events,
-        split=True,
-        filters=filters,
-        fmt="json",
-        flatten=fmt == "dataframe",
-        creds=creds,
-    )
+    events_call = partial(events, fmt="json", creds=creds,)
     with Pool(PARALLELL_CALLS_NUM) as p:
         matches_events = p.map(
             events_call, matches(c["competition_id"], c["season_id"], creds)
         )
+        matches_events = map(
+            lambda events: filter_and_group_events(
+                events, filters, fmt, fmt == "dataframe"
+            ),
+            matches_events,
+        )
+
     competition_events = reduce_events(matches_events, fmt)
     if fmt == "dataframe" and split is False:
         competition_events = pd.concat(
