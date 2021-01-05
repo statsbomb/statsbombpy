@@ -37,9 +37,10 @@ def matches(
         for col in ["season", "home_team", "away_team"]:
             matches[col] = matches[col].apply(lambda c: c[f"{col}_name"])
         for col in ["competition_stage", "stadium", "referee"]:
-            matches[col] = matches[col].apply(
-                lambda x: x["name"] if not pd.isna(x) else x
-            )
+            if col in matches.columns:
+                matches[col] = matches[col].apply(
+                    lambda x: x["name"] if not pd.isna(x) else x
+                )
         metadata = matches.pop("metadata")
         for k in ["data_version", "shot_fidelity_version", "xy_fidelity_version"]:
             matches[k] = metadata.apply(lambda x: x.get(k))
