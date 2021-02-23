@@ -12,9 +12,7 @@ This repository is a Python package to easily stream StatsBomb data into Python 
 
 ## Installation Instructions
 
-`git clone https://github.com/statsbomb/statsbombpy.git`  
-`cd statsbombpy`  
-`pip install .`
+`pip install statsbombpy`
 
 
 ## Running the tests
