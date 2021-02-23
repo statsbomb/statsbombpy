@@ -4,7 +4,7 @@
 
 #### Support: support@statsbombservices.com
 
-#### Updated September 10, 2020.
+#### Updated February 23, 2021.
 
 This repository is a Python package to easily stream StatsBomb data into Python using your log in credentials for the API or free data from our GitHub page. **API access is for paying customers only**
 
