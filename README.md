@@ -9,19 +9,19 @@
 This repository is a Python package to easily stream StatsBomb data into Python using your log in credentials for the API or free data from our GitHub page. **API access is for paying customers only**
 
 
-<br/><br/>
+
 ## Installation Instructions
 
 `git clone https://github.com/statsbomb/statsbombpy.git`  
 `cd statsbombpy`  
 `pip install .`
 
-<br/><br/>
+
 ## Running the tests
 
 `nose2 -v --pretty-assert`
 
-<br/><br/>
+
 ## Authentication
 
 #### Environment Variables
@@ -30,7 +30,7 @@ Authentication can be done by setting environment variables named `SB_USERNAME` 
 #### Manual Calls
 Alternatively, if you don't want to use environment variables, all functions accept an argument `creds` to pass your login credentials in the format `{"user": "", "passwd": ""}`
 
-<br/><br/>
+
 ## Open Data
 StatsBomb's open data can be accessed without the need of authentication.
 
@@ -42,14 +42,14 @@ StatsBomb are hoping that by making data freely available, we will extend the wi
 Whilst we are keen to share data and facilitate research, we also urge you to be responsible with the data. Please register your details on https://www.statsbomb.com/resource-centre and read our [User Agreement](doc/LICENSE.pdf) carefully.
 By using this repository, you are agreeing to the user agreement. If you publish, share or distribute any research, analysis or insights based on this data, please state the data source as StatsBomb and use our logo.
 
-<br/><br/>
+
 ## Usage
 
 ```
 from statsbombpy import sb
 ```
 
-<br/><br/>
+
 ### Competitions
 
 ```
@@ -128,7 +128,7 @@ sb.competitions()
   </tbody>
 </table>
 
-<br/><br/>
+
 ### Matches
 
 ```
@@ -267,7 +267,7 @@ sb.matches(competition_id=9, season_id=42)
   </tbody>
 </table>
 
-<br/><br/>
+
 ### Lineups
 
 ```
@@ -352,7 +352,7 @@ sb.lineups(match_id=303299)["Eintracht Frankfurt"]
   </tbody>
 </table>
 
-<br/><br/>
+
 ### Events
 The default settings for querying events return a single dataframe with all event types and event attributes.
 
@@ -885,7 +885,7 @@ events = sb.events(match_id=303299)
 
 
 
-<br/><br/>
+
 It's also possible to get distinct dataframes for each event type and/or to have distinct event attributes on their own columns
 ```
 sb.events(match_id=303299, split=True, flatten_attrs=False)["dribbles]
@@ -1030,7 +1030,7 @@ sb.events(match_id=303299, split=True, flatten_attrs=False)["dribbles]
 </table>
 
 
-<br/><br/>
+
 ### Competition Events
 All events from a given competition can be queried and stored on a single dataframe
 ```
@@ -1188,7 +1188,7 @@ grouped_events["dribbles"]
   </tbody>
 </table>
 
-<br/><br/>
+
 ### Raw Files
 Alternatively, entities can be accessed as python dictionaries serving as an interface to raw jsons and without performing any preprocessing
 ```
