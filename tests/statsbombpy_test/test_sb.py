@@ -63,6 +63,12 @@ class TestEventGetters(TestCase):
 
         events = sb.events(match_id=7562, creds={})
         self.assertIsInstance(events, pd.DataFrame)
+        self.assertTrue("shot_statsbomb_xg" in events.columns)
+
+        events = sb.events(match_id=7562, creds={}, flatten_attrs=False)
+        self.assertIsInstance(events, pd.DataFrame)
+        self.assertFalse("shot_statsbomb_xg" in events.columns)
+        self.assertTrue("shot" in events.columns)
 
     def test_competition_events(self):
         events = sb.competition_events(

@@ -9,6 +9,7 @@
 This repository is a Python package to easily stream StatsBomb data into Python using your log in credentials for the API or free data from our GitHub page. **API access is for paying customers only**
 
 
+
 ## Installation Instructions
 
 `git clone https://github.com/statsbomb/statsbombpy.git`  
@@ -47,6 +48,9 @@ By using this repository, you are agreeing to the user agreement. If you publish
 ```
 from statsbombpy import sb
 ```
+
+
+### Competitions
 
 ```
 sb.competitions()
@@ -124,6 +128,8 @@ sb.competitions()
   </tbody>
 </table>
 
+
+### Matches
 
 ```
 sb.matches(competition_id=9, season_id=42)
@@ -262,6 +268,8 @@ sb.matches(competition_id=9, season_id=42)
 </table>
 
 
+### Lineups
+
 ```
 sb.lineups(match_id=303299)["Eintracht Frankfurt"]
 ```
@@ -345,11 +353,542 @@ sb.lineups(match_id=303299)["Eintracht Frankfurt"]
 </table>
 
 
-```
-events = sb.events(match_id=303299)  # if you want to store all events in a given match on a single dataframe
+### Events
+The default settings for querying events return a single dataframe with all event types and event attributes.
 
-grouped_events = sb.events(match_id=303299, split=True)
-grouped_events["dribbles"]
+```
+events = sb.events(match_id=303299)
+```
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ball_receipt_outcome</th>
+      <th>ball_recovery_offensive</th>
+      <th>ball_recovery_recovery_failure</th>
+      <th>block_deflection</th>
+      <th>carry_end_location</th>
+      <th>clearance_aerial_won</th>
+      <th>clearance_body_part</th>
+      <th>clearance_head</th>
+      <th>clearance_left_foot</th>
+      <th>clearance_right_foot</th>
+      <th>counterpress</th>
+      <th>dribble_no_touch</th>
+      <th>dribble_outcome</th>
+      <th>dribble_overrun</th>
+      <th>duel_outcome</th>
+      <th>duel_type</th>
+      <th>duration</th>
+      <th>foul_committed_advantage</th>
+      <th>foul_committed_card</th>
+      <th>foul_won_advantage</th>
+      <th>foul_won_defensive</th>
+      <th>goalkeeper_body_part</th>
+      <th>goalkeeper_end_location</th>
+      <th>goalkeeper_outcome</th>
+      <th>goalkeeper_position</th>
+      <th>goalkeeper_technique</th>
+      <th>goalkeeper_type</th>
+      <th>id</th>
+      <th>index</th>
+      <th>injury_stoppage_in_chain</th>
+      <th>interception_outcome</th>
+      <th>location</th>
+      <th>match_id</th>
+      <th>minute</th>
+      <th>off_camera</th>
+      <th>out</th>
+      <th>pass_aerial_won</th>
+      <th>pass_angle</th>
+      <th>pass_assisted_shot_id</th>
+      <th>pass_body_part</th>
+      <th>pass_cross</th>
+      <th>pass_cut_back</th>
+      <th>pass_deflected</th>
+      <th>pass_end_location</th>
+      <th>pass_goal_assist</th>
+      <th>pass_height</th>
+      <th>pass_length</th>
+      <th>pass_outcome</th>
+      <th>pass_outswinging</th>
+      <th>pass_recipient</th>
+      <th>pass_shot_assist</th>
+      <th>pass_straight</th>
+      <th>pass_switch</th>
+      <th>pass_technique</th>
+      <th>pass_through_ball</th>
+      <th>pass_type</th>
+      <th>pass_xclaim</th>
+      <th>period</th>
+      <th>play_pattern</th>
+      <th>player</th>
+      <th>position</th>
+      <th>possession</th>
+      <th>possession_team</th>
+      <th>related_events</th>
+      <th>second</th>
+      <th>shot_aerial_won</th>
+      <th>shot_body_part</th>
+      <th>shot_end_location</th>
+      <th>shot_first_time</th>
+      <th>shot_freeze_frame</th>
+      <th>shot_key_pass_id</th>
+      <th>shot_one_on_one</th>
+      <th>shot_outcome</th>
+      <th>shot_statsbomb_xg</th>
+      <th>shot_statsbomb_xg2</th>
+      <th>shot_technique</th>
+      <th>shot_type</th>
+      <th>substitution_outcome</th>
+      <th>substitution_replacement</th>
+      <th>team</th>
+      <th>timestamp</th>
+      <th>type</th>
+      <th>under_pressure</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>500</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>3.498736</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>84828c06-41b5-44eb-aa92-1710bdb818ac</td>
+      <td>1838</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>[50.1, 16.6]</td>
+      <td>303299</td>
+      <td>47</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2.720095</td>
+      <td>NaN</td>
+      <td>Left Foot</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>[13.3, 33.1]</td>
+      <td>NaN</td>
+      <td>Ground Pass</td>
+      <td>40.329765</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Frederik Rønnow</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2</td>
+      <td>Regular Play</td>
+      <td>Obite Evan N"Dicka</td>
+      <td>Left Center Back</td>
+      <td>103</td>
+      <td>Eintracht Frankfurt</td>
+      <td>[ae3094e3-faa3-4608-8284-d9b8cca77711, c1202f1c-0831-4e88-83b2-597f56f0c858]</td>
+      <td>52</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Eintracht Frankfurt</td>
+      <td>00:02:52.438</td>
+      <td>Pass</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>501</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>3.604236</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>9061cd20-513b-499f-b925-f1de5f241281</td>
+      <td>1840</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>[13.3, 33.1]</td>
+      <td>303299</td>
+      <td>47</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>-0.153945</td>
+      <td>NaN</td>
+      <td>Right Foot</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>[77.1, 23.2]</td>
+      <td>NaN</td>
+      <td>High Pass</td>
+      <td>64.563540</td>
+      <td>Incomplete</td>
+      <td>NaN</td>
+      <td>Mijat Gaćinović</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2</td>
+      <td>Regular Play</td>
+      <td>Frederik Rønnow</td>
+      <td>Goalkeeper</td>
+      <td>103</td>
+      <td>Eintracht Frankfurt</td>
+      <td>[8e6495a7-782a-4f1a-845f-3ec50d761a1e, ff758a12-1ba6-4dd4-8b2c-7d39aa7aed97]</td>
+      <td>55</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Eintracht Frankfurt</td>
+      <td>00:02:55.937</td>
+      <td>Pass</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>502</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2.101999</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>8e6495a7-782a-4f1a-845f-3ec50d761a1e</td>
+      <td>1842</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>[43.0, 56.9]</td>
+      <td>303299</td>
+      <td>47</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>-0.703110</td>
+      <td>NaN</td>
+      <td>Head</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>[64.0, 39.1]</td>
+      <td>NaN</td>
+      <td>High Pass</td>
+      <td>27.528894</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Amine Harit</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Recovery</td>
+      <td>NaN</td>
+      <td>2</td>
+      <td>Regular Play</td>
+      <td>Ozan Muhammed Kabak</td>
+      <td>Right Center Back</td>
+      <td>104</td>
+      <td>Schalke 04</td>
+      <td>[9061cd20-513b-499f-b925-f1de5f241281, be6dfe7d-7596-4cc2-8cd9-8c17d064317e]</td>
+      <td>59</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Schalke 04</td>
+      <td>00:02:59.541</td>
+      <td>Pass</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>503</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.187459</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>86431bc7-210a-4868-8e18-26ff38becefc</td>
+      <td>1854</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>[65.9, 12.6]</td>
+      <td>303299</td>
+      <td>48</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>-0.730239</td>
+      <td>NaN</td>
+      <td>Right Foot</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>[74.5, 4.9]</td>
+      <td>NaN</td>
+      <td>Ground Pass</td>
+      <td>11.543396</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Amine Harit</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2</td>
+      <td>Regular Play</td>
+      <td>Suat Serdar</td>
+      <td>Left Defensive Midfield</td>
+      <td>104</td>
+      <td>Schalke 04</td>
+      <td>[761b4e65-8f64-464c-8153-6a98465208ba]</td>
+      <td>7</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Schalke 04</td>
+      <td>00:03:07.689</td>
+      <td>Pass</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>504</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.766628</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>6e58c713-622c-4246-8243-e4162e487a1c</td>
+      <td>1858</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>[79.1, 10.5]</td>
+      <td>303299</td>
+      <td>48</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.254940</td>
+      <td>NaN</td>
+      <td>Right Foot</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>[84.1, 25.8]</td>
+      <td>NaN</td>
+      <td>Ground Pass</td>
+      <td>16.096273</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Rabbi Matondo</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2</td>
+      <td>Regular Play</td>
+      <td>Amine Harit</td>
+      <td>Center Attacking Midfield</td>
+      <td>104</td>
+      <td>Schalke 04</td>
+      <td>[b1960a76-d3ae-4ef3-a2cd-47eca8c25e0a, dd1575c0-a408-4177-944d-7e86d2f79181]</td>
+      <td>11</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Schalke 04</td>
+      <td>00:03:11.719</td>
+      <td>Pass</td>
+      <td>True</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+It's also possible to get distinct dataframes for each event type and/or to have distinct event attributes on their own columns
+```
+sb.events(match_id=303299, split=True, flatten_attrs=False)["dribbles]
 ```
 <table border="1" class="dataframe">
   <thead>
@@ -490,8 +1029,11 @@ grouped_events["dribbles"]
   </tbody>
 </table>
 
+
+
+### Competition Events
+All events from a given competition can be queried and stored on a single dataframe
 ```
-# if you want to store all events in a given competition on a single non tidy dataframe
 events = sb.competition_events(
     country="Germany",
     division= "1. Bundesliga",
@@ -647,8 +1189,9 @@ grouped_events["dribbles"]
 </table>
 
 
+### Raw Files
+Alternatively, entities can be accessed as python dictionaries serving as an interface to raw jsons and without performing any preprocessing
 ```
-# alternatively, entities can be accessed as python dictionaries serving as an interface to raw jsons and without performing any preprocessing
 
 sb.competitions(fmt="dict")
 

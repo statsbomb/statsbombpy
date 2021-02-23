@@ -6,13 +6,14 @@ import pandas as pd
 from cashier import cache
 
 
-def flatten_event(event):
-    ev_type = event["type"]["name"].lower().replace(" ", "_").replace("*","")
-    ev_type = ev_type if event["type"]["name"] != "Goal Keeper" else "goalkeeper"
-    if ev_type in event:
-        for k, v in event[ev_type].items():
-            event[f"{ev_type}_{k}"] = v
-        del event[ev_type]
+def flatten_event(event, flatten_attrs):
+    if flatten_attrs:
+        ev_type = event["type"]["name"].lower().replace(" ", "_").replace("*","")
+        ev_type = ev_type if event["type"]["name"] != "Goal Keeper" else "goalkeeper"
+        if ev_type in event:
+            for k, v in event[ev_type].items():
+                event[f"{ev_type}_{k}"] = v
+            del event[ev_type]
 
     for k, v in event.items():
         if isinstance(v, dict) and "name" in v:
@@ -20,14 +21,14 @@ def flatten_event(event):
     return event
 
 
-def filter_and_group_events(events, filters, fmt, flatten):
+def filter_and_group_events(events, filters, fmt, flatten_attrs):
     events_ = defaultdict(list)
     for ev in events.values():
         ev_type = pluralize(ev["type"]["name"])
         if not is_relevant(ev, filters):
             continue
-        if flatten is True or fmt == "dataframe":
-            ev = flatten_event(ev)
+        if fmt == "dataframe":
+            ev = flatten_event(ev, flatten_attrs)
         events_[ev_type].append(ev)
     return events_
 
