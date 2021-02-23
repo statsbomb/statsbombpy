@@ -7,6 +7,13 @@ from cashier import cache
 
 
 def flatten_event(event):
+    ev_type = event["type"]["name"].lower().replace(" ", "_").replace("*","")
+    ev_type = ev_type if event["type"]["name"] != "Goal Keeper" else "goalkeeper"
+    if ev_type in event:
+        for k, v in event[ev_type].items():
+            event[f"{ev_type}_{k}"] = v
+        del event[ev_type]
+
     for k, v in event.items():
         if isinstance(v, dict) and "name" in v:
             event[k] = v["name"]
