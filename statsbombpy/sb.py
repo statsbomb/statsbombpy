@@ -66,7 +66,7 @@ def events(
     split: bool = False,
     filters: dict = {},
     fmt: str = "dataframe",
-    flatten: bool = False,
+    flatten_attrs: bool = True,
     creds: dict = DEFAULT_CREDS,
 ) -> (pd.DataFrame, dict):
 
@@ -76,7 +76,7 @@ def events(
         events = public.events(match_id)
 
     if fmt == "dataframe":
-        events = filter_and_group_events(events, filters, fmt, flatten)
+        events = filter_and_group_events(events, filters, fmt, flatten_attrs)
         for ev_type, evs in events.items():
             events[ev_type] = pd.DataFrame(evs)
         if split is False:
