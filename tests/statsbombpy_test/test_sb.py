@@ -28,6 +28,15 @@ class TestBaseGetters(TestCase):
         matches = sb.matches(competition_id=43, season_id=3, creds={})
         self.assertIsInstance(matches, pd.DataFrame)
 
+        matches = sb.matches(competition_id=2, season_id=44)
+        self.assertIsInstance(matches, pd.DataFrame)
+
+        matches = sb.matches(competition_id=2, season_id=44, fmt="json")
+        self.assertIsInstance(matches, dict)
+
+        matches = sb.matches(competition_id=2, season_id=44, creds={})
+        self.assertIsInstance(matches, pd.DataFrame)
+
     def test_lineups(self):
         lineups = sb.lineups(match_id=7562)
         self.assertIsInstance(lineups, dict)
