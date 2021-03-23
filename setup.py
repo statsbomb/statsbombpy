@@ -17,7 +17,6 @@ setup(
     author_email="support@statsbombservices.com",
     packages=["statsbombpy"],
     install_requires=[
-        "cashier",
         "inflect",
         "nose2",
         "pandas",

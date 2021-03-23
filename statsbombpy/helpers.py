@@ -1,10 +1,8 @@
 from collections import defaultdict
+from functools import lru_cache
 
 import inflect
 import pandas as pd
-
-from cashier import cache
-
 
 def flatten_event(event, flatten_attrs):
     if flatten_attrs:
@@ -49,7 +47,7 @@ def reduce_events(all_events: dict, fmt: str) -> dict:
 
 
 engine = inflect.engine()
-@cache()
+@lru_cache
 def pluralize(word):
     word = engine.plural(word)
     word = word.replace("*", "")
