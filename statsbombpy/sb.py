@@ -96,12 +96,12 @@ def competition_events(
     creds: dict = DEFAULT_CREDS,
 ) -> (pd.DataFrame, dict):
 
-    c = competitions(creds)[country, division, season, gender]
+    c = competitions(creds=creds, fmt='dict')[country, division, season, gender]
 
     events_call = partial(events, fmt="json", creds=creds,)
     with Pool(PARALLELL_CALLS_NUM) as p:
         matches_events = p.map(
-            events_call, matches(c["competition_id"], c["season_id"], creds)
+            events_call, matches(c["competition_id"], c["season_id"], fmt='dict', creds=creds)
         )
         matches_events = map(
             lambda events: filter_and_group_events(
