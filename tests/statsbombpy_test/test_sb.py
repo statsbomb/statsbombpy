@@ -72,22 +72,25 @@ class TestEventGetters(TestCase):
 
     def test_competition_events(self):
         events = sb.competition_events(
-            country="England", division="FA Cup", season="2019/2020", gender="male"
+            country="Europe",
+            division="Champions League",
+            season="2018/2019",
+            gender="male",
         )
         self.assertIsInstance(events, pd.DataFrame)
 
         events = sb.competition_events(
-            country="England",
-            division="FA Cup",
-            season="2019/2020",
+            country="Europe",
+            division="Champions League",
+            season="2018/2019",
             split=True,
         )
         self.assertIsInstance(events["shots"], pd.DataFrame)
 
         events = sb.competition_events(
-            country="England",
-            division="FA Cup",
-            season="2019/2020",
+            country="Europe",
+            division="Champions League",
+            season="2018/2019",
             fmt="json",
         )
 
