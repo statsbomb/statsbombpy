@@ -26,7 +26,7 @@ def matches(
     competition_id: int, season_id: int, fmt="dataframe", creds: dict = DEFAULT_CREDS
 ):
     if api_client.has_auth(creds) is True:
-        matches = api_client.matches(competition_id, season_id, creds)
+        matches = api_client.matches(competition_id, season_id, creds=creds)
     else:
         matches = public.matches(competition_id, season_id)
     if fmt == "dataframe":
@@ -49,7 +49,7 @@ def matches(
 
 def lineups(match_id, fmt="dataframe", creds: dict = DEFAULT_CREDS):
     if api_client.has_auth(creds) is True:
-        lineups = api_client.lineups(match_id, creds)
+        lineups = api_client.lineups(match_id, creds=creds)
     else:
         lineups = public.lineups(match_id)
     if fmt == "dataframe":
@@ -72,7 +72,7 @@ def events(
 ) -> (pd.DataFrame, dict):
 
     if api_client.has_auth(creds) is True:
-        events = api_client.events(match_id, creds)
+        events = api_client.events(match_id, creds=creds)
     else:
         events = public.events(match_id)
 
