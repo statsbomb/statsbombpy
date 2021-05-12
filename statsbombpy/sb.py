@@ -26,7 +26,7 @@ def matches(
     competition_id: int, season_id: int, fmt="dataframe", creds: dict = DEFAULT_CREDS
 ):
     if api_client.has_auth(creds) is True:
-        matches = api_client.matches(competition_id, season_id, creds)
+        matches = api_client.matches(competition_id, season_id, creds=creds)
     else:
         matches = public.matches(competition_id, season_id)
     if fmt == "dataframe":
@@ -49,7 +49,7 @@ def matches(
 
 def lineups(match_id, fmt="dataframe", creds: dict = DEFAULT_CREDS):
     if api_client.has_auth(creds) is True:
-        lineups = api_client.lineups(match_id, creds)
+        lineups = api_client.lineups(match_id, creds=creds)
     else:
         lineups = public.lineups(match_id)
     if fmt == "dataframe":
@@ -72,7 +72,7 @@ def events(
 ) -> (pd.DataFrame, dict):
 
     if api_client.has_auth(creds) is True:
-        events = api_client.events(match_id, creds)
+        events = api_client.events(match_id, creds=creds)
     else:
         events = public.events(match_id)
 
@@ -96,12 +96,17 @@ def competition_events(
     creds: dict = DEFAULT_CREDS,
 ) -> (pd.DataFrame, dict):
 
-    c = competitions(creds)[country, division, season, gender]
+    c = competitions(creds=creds, fmt="dict")[country, division, season, gender]
 
-    events_call = partial(events, fmt="json", creds=creds,)
+    events_call = partial(
+        events,
+        fmt="json",
+        creds=creds,
+    )
     with Pool(PARALLELL_CALLS_NUM) as p:
         matches_events = p.map(
-            events_call, matches(c["competition_id"], c["season_id"], creds)
+            events_call,
+            matches(c["competition_id"], c["season_id"], fmt="dict", creds=creds),
         )
         matches_events = map(
             lambda events: filter_and_group_events(
