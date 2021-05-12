@@ -1,5 +1,5 @@
 from collections import defaultdict
-from functools import lru_cache
+from joblib import Memory
 
 import inflect
 import pandas as pd
@@ -47,7 +47,11 @@ def reduce_events(all_events: dict, fmt: str) -> dict:
 
 
 engine = inflect.engine()
-@lru_cache
+
+cachedir = '.cache/'
+memory = Memory(cachedir, verbose=0)
+
+@memory.cache
 def pluralize(word):
     word = engine.plural(word)
     word = word.replace("*", "")

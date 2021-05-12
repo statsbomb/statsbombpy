@@ -17,6 +17,7 @@ setup(
     author_email="support@statsbombservices.com",
     packages=["statsbombpy"],
     install_requires=[
+        "joblib",
         "inflect",
         "nose2",
         "pandas",
