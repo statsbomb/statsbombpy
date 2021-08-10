@@ -1,6 +1,6 @@
 name: Issue form
 description: Report a bug or request support
-title: ""
+title: "Issue report"
 assignees:
   - anenglishgoat
 body:
