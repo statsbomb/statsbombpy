@@ -35,6 +35,8 @@ body:
         - Windows
         - Linux
         - Mac
+    validations:
+      required: true
   - type: textarea
     id: environment
     attributes:
