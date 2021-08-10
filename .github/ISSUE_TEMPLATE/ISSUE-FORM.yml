@@ -1,0 +1,75 @@
+name: Issue form
+description: Report a bug or request support
+title: ""
+assignees:
+  - anenglishgoat
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this form!
+  - type: input
+    id: contact
+    attributes:
+      label: Contact Details
+      description: How can we get in touch with you if we need more info?
+      placeholder: ex. email@example.com
+    validations:
+      required: false
+  - type: dropdown
+    id: version
+    attributes:
+      label: Version
+      description: What version of our software are you running? (`from importlib.metadata import version; print(version('statsbombpy'))`)
+      options:
+        - 1.0.1
+        - 1.0.0
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: What platform are you seeing the problem on?
+      multiple: true
+      options:
+        - Windows
+        - Linux
+        - Mac
+  - type: textarea
+    id: environment
+    attributes:
+      label: What Python version are you running, are you using a virtual environment? Give us as much info as you can.
+      placeholder: e.g. Python 3.8, using `poetry` for dependency management
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Also tell us, what did you expect to happen?
+      placeholder: Tell us what you see!
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      render: shell
+    validations:
+      required: false
+  - type: textarea
+    id: code-to-reproduce
+    attributes:
+      label: Code to reproduce issue
+      description: Please add any code required to reproduce the issue.
+      render: shell
+    validations:
+      required: false
+  - type: textarea
+    id: attempted-solutions
+    attributes:
+      label: Attempted solutions
+      description: What have you already tried?
+    validations:
+      required: false
