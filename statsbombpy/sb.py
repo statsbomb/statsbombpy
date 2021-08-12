@@ -1,13 +1,13 @@
 import pandas as pd
-import requests as req
 
-from collections import defaultdict
-from functools import partial, reduce
+from functools import partial
 from multiprocessing import Pool
+
+from typing import Union
 
 from statsbombpy import api_client, public
 from statsbombpy.config import DEFAULT_CREDS, PARALLELL_CALLS_NUM
-from statsbombpy.helpers import filter_and_group_events, is_relevant, reduce_events
+from statsbombpy.helpers import filter_and_group_events, reduce_events
 
 
 def competitions(fmt="dataframe", creds: dict = DEFAULT_CREDS):
@@ -54,10 +54,10 @@ def lineups(match_id, fmt="dataframe", creds: dict = DEFAULT_CREDS):
         lineups = public.lineups(match_id)
     if fmt == "dataframe":
         lineups_ = {}
-        for l in lineups.values():
-            lineup = pd.DataFrame(l["lineup"])
-            lineup["country"] = lineup.country.apply(lambda c: c["name"])
-            lineups_[l["team_name"]] = lineup
+        for lineup in lineups.values():
+            lineup_ = pd.DataFrame(lineup["lineup"])
+            lineup_["country"] = lineup_.country.apply(lambda c: c["name"])
+            lineups_[lineup["team_name"]] = lineup_
             lineups = lineups_
     return lineups
 
@@ -69,7 +69,7 @@ def events(
     fmt: str = "dataframe",
     flatten_attrs: bool = True,
     creds: dict = DEFAULT_CREDS,
-) -> (pd.DataFrame, dict):
+) -> Union[pd.DataFrame, dict]:
 
     if api_client.has_auth(creds) is True:
         events = api_client.events(match_id, creds=creds)
@@ -94,7 +94,7 @@ def competition_events(
     filters: dict = {},
     fmt: str = "dataframe",
     creds: dict = DEFAULT_CREDS,
-) -> (pd.DataFrame, dict):
+) -> Union[pd.DataFrame, dict]:
 
     c = competitions(creds=creds, fmt="dict")[country, division, season, gender]
 
@@ -121,3 +121,47 @@ def competition_events(
             [*competition_events.values()], axis=0, ignore_index=True, sort=True
         )
     return competition_events
+
+
+def frames(
+    match_id, fmt="dataframe", creds: dict = DEFAULT_CREDS
+) -> Union[pd.DataFrame, dict]:
+    if api_client.has_auth(creds) is True:
+        frames = api_client.frames(match_id, creds=creds)
+    else:
+        frames = public.frames(match_id)
+    if fmt == "dataframe":
+        frames = pd.DataFrame(frames)
+    return frames
+
+
+def competition_frames(
+    country: str,
+    division: str,
+    season: str,
+    gender: str = "male",
+    fmt: str = "dataframe",
+    creds: dict = DEFAULT_CREDS,
+) -> Union[pd.DataFrame, dict]:
+
+    c = competitions(creds=creds, fmt="dict")[country, division, season, gender]
+
+    frames_call = partial(
+        frames,
+        fmt="json",
+        creds=creds,
+    )
+    with Pool(PARALLELL_CALLS_NUM) as p:
+        competition_frames = p.map(
+            frames_call,
+            matches(c["competition_id"], c["season_id"], fmt="dict", creds=creds),
+        )
+
+    if fmt == "dataframe":
+        competition_frames = pd.concat(
+            [pd.DataFrame(frame) for frame in frames],
+            axis=0,
+            ignore_index=True,
+            sort=True,
+        )
+    return competition_frames

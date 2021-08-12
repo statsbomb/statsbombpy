@@ -1,5 +1,3 @@
-import os
-
 import pandas as pd
 
 from unittest import TestCase, main
@@ -93,6 +91,37 @@ class TestEventGetters(TestCase):
             season="2018/2019",
             fmt="json",
         )
+
+
+class TestFrameGetters(TestCase):
+    def test_frames(self):
+        frames = sb.frames(match_id=3764302)
+        self.assertIsInstance(frames, pd.DataFrame)
+
+        frames = sb.frames(match_id=3764302, fmt="json")
+        self.assertIsInstance(frames, dict)
+
+        frames = sb.events(match_id=3764302, creds={})
+        self.assertIsInstance(frames, pd.DataFrame)
+        self.assertTrue(len(frames) == 0)
+
+    def test_competition_frames(self):
+        frames = sb.competition_frames(
+            country="Germany",
+            division="1. Bundesliga",
+            season="2020/2021",
+            gender="male",
+        )
+        self.assertIsInstance(frames, pd.DataFrame)
+
+        frames = sb.competition_frames(
+            country="Germany",
+            division="1. Bundesliga",
+            season="2020/2021",
+            gender="male",
+            fmt="json",
+        )
+        self.assertIsInstance(frames, dict)
 
 
 if __name__ == "__main__":
