@@ -124,14 +124,19 @@ def competition_events(
 
 
 def frames(
-    match_id, fmt="dataframe", creds: dict = DEFAULT_CREDS
+    match_id: int,
+    fmt: str = "dataframe",
+    creds: dict = DEFAULT_CREDS,
 ) -> Union[pd.DataFrame, dict]:
     if api_client.has_auth(creds) is True:
         frames = api_client.frames(match_id, creds=creds)
     else:
         frames = public.frames(match_id)
     if fmt == "dataframe":
-        frames = pd.DataFrame(frames)
+        frames = pd.json_normalize(
+            frames, "freeze_frame", ["event_uuid", "visible_area"]
+        )
+        frames = frames.rename(columns={"event_uuid": "id"})
     return frames
 
 
@@ -159,7 +164,7 @@ def competition_frames(
 
     if fmt == "dataframe":
         competition_frames = pd.concat(
-            [pd.DataFrame(frame) for frame in frames],
+            [pd.DataFrame(frame) for frame in competition_frames],
             axis=0,
             ignore_index=True,
             sort=True,
