@@ -1186,6 +1186,83 @@ grouped_events["dribbles"]
   </tbody>
 </table>
 
+### 360 Frames
+
+If you have credentials to an account with access to 360 data, you can access the frames for a match or a competition
+
+```
+match_frames = sb.frames(match_id=3772072, fmt='dataframe')
+comp_frames = sb.competition_frames(
+    country="Germany",
+    division= "1. Bundesliga",
+    season="2019/2020"
+)
+match_frames
+```
+
+<table border=\"1\" class=\"dataframe\">
+  <thead>
+    <tr style=\"text-align: right;\">
+      <th></th>
+      <th>teammate</th>
+      <th>actor</th>
+      <th>keeper</th>
+      <th>location</th>
+      <th>id</th>
+      <th>visible_area</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>[39.27561, 34.34118]</td>
+      <td>ca3c2fcb-e578-4103-a2b6-3c3da50a0009</td>
+      <td>[0.0, 80.0, 0.0, 64.3063432537811, 38.6449675910462, 0.0, 84.2004689919974, 0.0, 120.0, 53.0370178246748, 120.0, 80.0, 0.0, 80.0]</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>[45.01009, 22.54314]</td>
+      <td>ca3c2fcb-e578-4103-a2b6-3c3da50a0009</td>
+      <td>[0.0, 80.0, 0.0, 64.3063432537811, 38.6449675910462, 0.0, 84.2004689919974, 0.0, 120.0, 53.0370178246748, 120.0, 80.0, 0.0, 80.0]</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>[46.438095, 51.300377]</td>
+      <td>ca3c2fcb-e578-4103-a2b6-3c3da50a0009</td>
+      <td>[0.0, 80.0, 0.0, 64.3063432537811, 38.6449675910462, 0.0, 84.2004689919974, 0.0, 120.0, 53.0370178246748, 120.0, 80.0, 0.0, 80.0]</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>[53.26781, 30.843254]</td>
+      <td>ca3c2fcb-e578-4103-a2b6-3c3da50a0009</td>
+      <td>[0.0, 80.0, 0.0, 64.3063432537811, 38.6449675910462, 0.0, 84.2004689919974, 0.0, 120.0, 53.0370178246748, 120.0, 80.0, 0.0, 80.0]</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>[55.60041, 10.39319]</td>
+      <td>ca3c2fcb-e578-4103-a2b6-3c3da50a0009</td>
+      <td>[0.0, 80.0, 0.0, 64.3063432537811, 38.6449675910462, 0.0, 84.2004689919974, 0.0, 120.0, 53.0370178246748, 120.0, 80.0, 0.0, 80.0]</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
 
 ### Raw Files
 Alternatively, entities can be accessed as python dictionaries serving as an interface to raw jsons and without performing any preprocessing
@@ -1206,4 +1283,15 @@ sb.competition_events(
     gender="male",
     fmt="dict"
 )
+
+sb.frames(303299, fmt="dict")
+
+sb.competition_frames(
+    country="Germany",
+    division= "1. Bundesliga",
+    season="2019/2020",
+    gender="male",
+    fmt="dict"
+)
+
 ```
