@@ -1284,12 +1284,12 @@ sb.competition_events(
     fmt="dict"
 )
 
-sb.frames(303299, fmt="dict")
+sb.frames(3772072, fmt="dict")
 
 sb.competition_frames(
     country="Germany",
     division= "1. Bundesliga",
-    season="2019/2020",
+    season="2021/2022",
     gender="male",
     fmt="dict"
 )
