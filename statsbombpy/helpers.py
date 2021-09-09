@@ -4,9 +4,10 @@ from joblib import Memory
 import inflect
 import pandas as pd
 
+
 def flatten_event(event, flatten_attrs):
     if flatten_attrs:
-        ev_type = event["type"]["name"].lower().replace(" ", "_").replace("*","")
+        ev_type = event["type"]["name"].lower().replace(" ", "_").replace("*", "")
         ev_type = ev_type if event["type"]["name"] != "Goal Keeper" else "goalkeeper"
         if ev_type in event:
             for k, v in event[ev_type].items():
@@ -48,8 +49,9 @@ def reduce_events(all_events: dict, fmt: str) -> dict:
 
 engine = inflect.engine()
 
-cachedir = '.cache/'
+cachedir = ".cache/"
 memory = Memory(cachedir, verbose=0)
+
 
 @memory.cache
 def pluralize(word):

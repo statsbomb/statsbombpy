@@ -1,6 +1,3 @@
-import os
-
-import pandas as pd
 import requests as req
 
 from requests_cache import install_cache
@@ -63,3 +60,8 @@ def events(match_id: int, creds: dict) -> dict:
     events = ents.events(events, match_id)
     return events
 
+
+def frames(match_id: int, creds: dict) -> dict:
+    url = f"{HOSTNAME}/api/{VERSIONS['360-frames']}/360-frames/{match_id}"
+    frames = get_resource(url, creds)
+    return frames
