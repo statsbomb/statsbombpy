@@ -22,6 +22,6 @@ VERSIONS = {
     "competitions": "v2",
     "matches": "v3",
     "lineups": "v2",
-    "events": "v5",
+    "events": "v6",
     "360-frames": "v1",
 }
