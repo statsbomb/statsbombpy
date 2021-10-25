@@ -65,3 +65,21 @@ def frames(match_id: int, creds: dict) -> dict:
     url = f"{HOSTNAME}/api/{VERSIONS['360-frames']}/360-frames/{match_id}"
     frames = get_resource(url, creds)
     return frames
+
+
+def player_match_stats(match_id: int, creds: dict) -> dict:
+    url = f"{HOSTNAME}/api/{VERSIONS['player-match-stats']}/matches/{match_id}/player-stats"
+    player_match_stats = get_resource(url, creds)
+    return player_match_stats
+
+
+def player_season_stats(competition_id: int, season_id: int, creds: dict) -> dict:
+    url = f"{HOSTNAME}/api/{VERSIONS['player-season-stats']}/competitions/{competition_id}/seasons/{season_id}/player-stats"
+    player_season_stats = get_resource(url, creds)
+    return player_season_stats
+
+
+def team_season_stats(competition_id: int, season_id: int, creds: dict) -> dict:
+    url = f"{HOSTNAME}/api/{VERSIONS['team-season-stats']}/competitions/{competition_id}/seasons/{season_id}/team-stats"
+    team_season_stats = get_resource(url, creds)
+    return team_season_stats

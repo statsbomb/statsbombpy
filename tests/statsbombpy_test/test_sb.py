@@ -124,5 +124,60 @@ class TestFrameGetters(TestCase):
         self.assertIsInstance(frames, dict)
 
 
+class TestAggregatedStatsGetters(TestCase):
+    def test_player_match_stats(self):
+        player_match_stats = sb.player_match_stats(match_id=7562)
+        self.assertIsInstance(player_match_stats, pd.DataFrame)
+
+        player_match_stats = sb.player_match_stats(match_id=7562, fmt="json")
+        self.assertIsInstance(player_match_stats, list)
+
+        player_match_stats = sb.player_match_stats(match_id=7562, creds={})
+        self.assertIsInstance(player_match_stats, pd.DataFrame)
+        self.assertTrue(len(player_match_stats) == 1)
+
+    def test_player_season_stats(self):
+        player_season_stats = sb.player_season_stats(competition_id=43, season_id=3)
+        self.assertIsInstance(player_season_stats, pd.DataFrame)
+
+        player_season_stats = sb.player_season_stats(competition_id=43, season_id=3, fmt="json")
+        self.assertIsInstance(player_season_stats, list)
+
+        player_season_stats = sb.player_season_stats(competition_id=43, season_id=3, creds={})
+        self.assertIsInstance(player_season_stats, pd.DataFrame)
+        self.assertTrue(len(player_season_stats) == 1)
+
+        player_season_stats = sb.player_season_stats(competition_id=2, season_id=44)
+        self.assertIsInstance(player_season_stats, pd.DataFrame)
+
+        player_season_stats = sb.player_season_stats(competition_id=2, season_id=44, fmt="json")
+        self.assertIsInstance(player_season_stats, list)
+
+        player_season_stats = sb.player_season_stats(competition_id=2, season_id=44, creds={})
+        self.assertIsInstance(player_season_stats, pd.DataFrame)
+        self.assertTrue(len(player_season_stats) == 1)
+
+    def test_team_season_stats(self):
+        team_season_stats = sb.team_season_stats(competition_id=43, season_id=3)
+        self.assertIsInstance(team_season_stats, pd.DataFrame)
+
+        team_season_stats = sb.team_season_stats(competition_id=43, season_id=3, fmt="json")
+        self.assertIsInstance(team_season_stats, list)
+
+        team_season_stats = sb.team_season_stats(competition_id=43, season_id=3, creds={})
+        self.assertIsInstance(team_season_stats, pd.DataFrame)
+        self.assertTrue(len(team_season_stats) == 1)
+
+        team_season_stats = sb.team_season_stats(competition_id=2, season_id=44)
+        self.assertIsInstance(team_season_stats, pd.DataFrame)
+
+        team_season_stats = sb.team_season_stats(competition_id=2, season_id=44, fmt="json")
+        self.assertIsInstance(team_season_stats, list)
+
+        team_season_stats = sb.team_season_stats(competition_id=2, season_id=44, creds={})
+        self.assertIsInstance(team_season_stats, pd.DataFrame)
+        self.assertTrue(len(team_season_stats) == 1)
+
+
 if __name__ == "__main__":
     main()
