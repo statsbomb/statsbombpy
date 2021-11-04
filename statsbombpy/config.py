@@ -24,4 +24,7 @@ VERSIONS = {
     "lineups": "v2",
     "events": "v6",
     "360-frames": "v1",
+    "player-match-stats": "v1",
+    "player-season-stats": "v1",
+    "team-season-stats": "v1",
 }

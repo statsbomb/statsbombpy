@@ -32,9 +32,3 @@ def events(match_id: int) -> dict:
     events = req.get(OPEN_DATA_PATHS["events"].format(match_id=match_id)).json()
     events = ents.events(events, match_id)
     return events
-
-
-def frames(match_id: int) -> dict:
-    frames = {}
-    warnings.warn("There is currently no open 360 data, returning empty dict")
-    return frames
