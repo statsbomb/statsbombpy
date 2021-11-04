@@ -1,4 +1,5 @@
 import pandas as pd
+import warnings
 
 from functools import partial
 from multiprocessing import Pool
@@ -131,7 +132,7 @@ def frames(
     if api_client.has_auth(creds) is True:
         frames = api_client.frames(match_id, creds=creds)
     else:
-        frames = public.frames(match_id)
+        raise Exception("There is currently no open 360 data, please provide credentials")
     if fmt == "dataframe":
         frames = pd.json_normalize(
             frames, "freeze_frame", ["event_uuid", "visible_area"]
@@ -180,7 +181,7 @@ def player_match_stats(
     if api_client.has_auth(creds) is True:
         player_match_stats = api_client.player_match_stats(match_id, creds=creds)
     else:
-        player_match_stats = public.player_match_stats(match_id)
+        raise Exception("There is currently no open data for aggregated stats, please provide credentials")
     if fmt == "dataframe":
         player_match_stats = pd.json_normalize(player_match_stats)
     return player_match_stats
@@ -198,7 +199,7 @@ def player_season_stats(
             season_id, 
             creds=creds)
     else:
-        player_season_stats = public.player_season_stats(competition_id, season_id)
+        raise Exception("There is currently no open data for aggregated stats, please provide credentials")
     if fmt == "dataframe":
         player_season_stats = pd.json_normalize(player_season_stats)
     return player_season_stats
@@ -216,7 +217,7 @@ def team_season_stats(
             season_id, 
             creds=creds)
     else:
-        team_season_stats = public.team_season_stats(competition_id, season_id)
+        raise Exception("There is currently no open data for aggregated stats, please provide credentials")
     if fmt == "dataframe":
         team_season_stats = pd.json_normalize(team_season_stats)
     return team_season_stats

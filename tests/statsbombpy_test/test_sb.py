@@ -102,8 +102,7 @@ class TestFrameGetters(TestCase):
         self.assertIsInstance(frames, dict)
 
         frames = sb.events(match_id=3764302, creds={})
-        self.assertIsInstance(frames, pd.DataFrame)
-        self.assertTrue(len(frames) == 0)
+        self.assertRaises(Exception, frames)
 
     def test_competition_frames(self):
         frames = sb.competition_frames(
@@ -132,9 +131,8 @@ class TestAggregatedStatsGetters(TestCase):
         player_match_stats = sb.player_match_stats(match_id=7562, fmt="json")
         self.assertIsInstance(player_match_stats, list)
 
-        player_match_stats = sb.player_match_stats(match_id=7562, creds={})
-        self.assertIsInstance(player_match_stats, pd.DataFrame)
-        self.assertTrue(len(player_match_stats) == 1)
+        with self.assertRaises(Exception):
+            sb.player_match_stats(match_id=7562, creds={})
 
     def test_player_season_stats(self):
         player_season_stats = sb.player_season_stats(competition_id=43, season_id=3)
@@ -143,9 +141,8 @@ class TestAggregatedStatsGetters(TestCase):
         player_season_stats = sb.player_season_stats(competition_id=43, season_id=3, fmt="json")
         self.assertIsInstance(player_season_stats, list)
 
-        player_season_stats = sb.player_season_stats(competition_id=43, season_id=3, creds={})
-        self.assertIsInstance(player_season_stats, pd.DataFrame)
-        self.assertTrue(len(player_season_stats) == 1)
+        with self.assertRaises(Exception):
+            sb.player_season_stats(competition_id=43, season_id=3, creds={})
 
         player_season_stats = sb.player_season_stats(competition_id=2, season_id=44)
         self.assertIsInstance(player_season_stats, pd.DataFrame)
@@ -153,9 +150,8 @@ class TestAggregatedStatsGetters(TestCase):
         player_season_stats = sb.player_season_stats(competition_id=2, season_id=44, fmt="json")
         self.assertIsInstance(player_season_stats, list)
 
-        player_season_stats = sb.player_season_stats(competition_id=2, season_id=44, creds={})
-        self.assertIsInstance(player_season_stats, pd.DataFrame)
-        self.assertTrue(len(player_season_stats) == 1)
+        with self.assertRaises(Exception):
+            sb.player_season_stats(competition_id=2, season_id=44, creds={})
 
     def test_team_season_stats(self):
         team_season_stats = sb.team_season_stats(competition_id=43, season_id=3)
@@ -164,9 +160,8 @@ class TestAggregatedStatsGetters(TestCase):
         team_season_stats = sb.team_season_stats(competition_id=43, season_id=3, fmt="json")
         self.assertIsInstance(team_season_stats, list)
 
-        team_season_stats = sb.team_season_stats(competition_id=43, season_id=3, creds={})
-        self.assertIsInstance(team_season_stats, pd.DataFrame)
-        self.assertTrue(len(team_season_stats) == 1)
+        with self.assertRaises(Exception):
+            sb.team_season_stats(competition_id=43, season_id=3, creds={})
 
         team_season_stats = sb.team_season_stats(competition_id=2, season_id=44)
         self.assertIsInstance(team_season_stats, pd.DataFrame)
@@ -174,9 +169,8 @@ class TestAggregatedStatsGetters(TestCase):
         team_season_stats = sb.team_season_stats(competition_id=2, season_id=44, fmt="json")
         self.assertIsInstance(team_season_stats, list)
 
-        team_season_stats = sb.team_season_stats(competition_id=2, season_id=44, creds={})
-        self.assertIsInstance(team_season_stats, pd.DataFrame)
-        self.assertTrue(len(team_season_stats) == 1)
+        with self.assertRaises(Exception):
+            sb.team_season_stats(competition_id=2, season_id=44, creds={})
 
 
 if __name__ == "__main__":

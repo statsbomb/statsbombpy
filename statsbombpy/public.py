@@ -32,27 +32,3 @@ def events(match_id: int) -> dict:
     events = req.get(OPEN_DATA_PATHS["events"].format(match_id=match_id)).json()
     events = ents.events(events, match_id)
     return events
-
-
-def frames(match_id: int) -> dict:
-    frames = {}
-    warnings.warn("There is currently no open 360 data, returning empty dict")
-    return frames
-
-
-def player_match_stats(match_id: int) -> dict:
-    player_match_stats = {}
-    warnings.warn("There is currently no open data for aggregated stats, returning empty dict")
-    return player_match_stats
-
-
-def player_season_stats(competition_id: int, season_id: int) -> dict:
-    player_season_stats = {}
-    warnings.warn("There is currently no open data for aggregated stats, returning empty dict")
-    return player_season_stats
-
-
-def team_season_stats(competition_id: int, season_id: int) -> dict:
-    team_season_stats = {}
-    warnings.warn("There is currently no open data for aggregated stats, returning empty dict")
-    return team_season_stats
