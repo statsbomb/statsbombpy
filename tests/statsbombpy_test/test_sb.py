@@ -101,8 +101,8 @@ class TestFrameGetters(TestCase):
         frames = sb.frames(match_id=3764302, fmt="json")
         self.assertIsInstance(frames, dict)
 
-        frames = sb.events(match_id=3764302, creds={})
-        self.assertRaises(Exception, frames)
+        with self.assertRaises(Exception):
+            sb.events(match_id=3764302, creds={})
 
     def test_competition_frames(self):
         frames = sb.competition_frames(
