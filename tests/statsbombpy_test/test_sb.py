@@ -101,9 +101,8 @@ class TestFrameGetters(TestCase):
         frames = sb.frames(match_id=3764302, fmt="json")
         self.assertIsInstance(frames, dict)
 
-        frames = sb.frames(match_id=3764302, creds={})
-        self.assertIsInstance(frames, pd.DataFrame)
-        self.assertTrue(len(frames) == 0)
+        with self.assertRaises(Exception):
+            sb.frames(match_id=3764302, creds={})
 
     def test_competition_frames(self):
         frames = sb.competition_frames(
