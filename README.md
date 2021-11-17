@@ -1188,8 +1188,6 @@ grouped_events["dribbles"]
 
 ### 360 Frames
 
-If you have credentials to an account with access to 360 data, you can access the frames for a match or a competition
-
 ```
 match_frames = sb.frames(match_id=3772072, fmt='dataframe')
 comp_frames = sb.competition_frames(

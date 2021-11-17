@@ -32,3 +32,8 @@ def events(events: list, match_id: int) -> dict:
         ev["match_id"] = match_id
         events_[ev["id"]] = ev
     return events_
+
+def frames(frames: list, match_id: int) -> list:
+    for fr in frames:
+        fr["match_id"] = match_id
+    return frames
