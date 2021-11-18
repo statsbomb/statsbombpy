@@ -64,6 +64,7 @@ def events(match_id: int, creds: dict) -> dict:
 def frames(match_id: int, creds: dict) -> dict:
     url = f"{HOSTNAME}/api/{VERSIONS['360-frames']}/360-frames/{match_id}"
     frames = get_resource(url, creds)
+    frames = ents.frames(frames, match_id)
     return frames
 
 

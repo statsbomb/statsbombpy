@@ -132,10 +132,10 @@ def frames(
     if api_client.has_auth(creds) is True:
         frames = api_client.frames(match_id, creds=creds)
     else:
-        raise Exception("There is currently no open 360 data, please provide credentials")
+        frames = public.frames(match_id)
     if fmt == "dataframe":
         frames = pd.json_normalize(
-            frames, "freeze_frame", ["event_uuid", "visible_area"]
+            frames, "freeze_frame", ["event_uuid", "visible_area", "match_id"]
         )
         frames = frames.rename(columns={"event_uuid": "id"})
     return frames

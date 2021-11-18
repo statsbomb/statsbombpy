@@ -99,28 +99,28 @@ class TestFrameGetters(TestCase):
         self.assertIsInstance(frames, pd.DataFrame)
 
         frames = sb.frames(match_id=3764302, fmt="json")
-        self.assertIsInstance(frames, dict)
+        self.assertIsInstance(frames, list)
 
-        with self.assertRaises(Exception):
-            sb.events(match_id=3764302, creds={})
+        frames = sb.frames(match_id=3788741, creds={})
+        self.assertIsInstance(frames, pd.DataFrame)
 
     def test_competition_frames(self):
         frames = sb.competition_frames(
-            country="Germany",
-            division="1. Bundesliga",
-            season="2020/2021",
+            country="Europe",
+            division="Champions League",
+            season="2021/2022",
             gender="male",
         )
         self.assertIsInstance(frames, pd.DataFrame)
 
         frames = sb.competition_frames(
-            country="Germany",
-            division="1. Bundesliga",
-            season="2020/2021",
+            country="Europe",
+            division="Champions League",
+            season="2021/2022",
             gender="male",
             fmt="json",
         )
-        self.assertIsInstance(frames, dict)
+        self.assertIsInstance(frames, list)
 
 
 class TestAggregatedStatsGetters(TestCase):
