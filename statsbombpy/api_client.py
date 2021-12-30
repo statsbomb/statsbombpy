@@ -1,4 +1,5 @@
 from tempfile import mkdtemp
+import warnings
 
 import requests as req
 from requests_cache import install_cache
@@ -6,12 +7,15 @@ from requests_cache import install_cache
 import statsbombpy.entities as ents
 from statsbombpy.config import CACHED_CALLS_SECS, HOSTNAME, VERSIONS
 
+from statsbombpy.errors import NoAuthWarning
+
+
 install_cache(mkdtemp(), backend="sqlite", expire_after=CACHED_CALLS_SECS)
 
 
 def has_auth(creds):
     if creds.get("user") in [None, ""] or creds.get("passwd") in [None, ""]:
-        print("credentials were not supplied. open data access only")
+        warnings.warn("credentials were not supplied. open data access only", NoAuthWarning)
         return False
     return True
 
