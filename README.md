@@ -151,6 +151,8 @@ sb.matches(competition_id=9, season_id=42)
       <th>competition_stage</th>
       <th>stadium</th>
       <th>referee</th>
+      <th>home_managers</th>
+      <th>away_managers</th>
       <th>data_version</th>
       <th>shot_fidelity_version</th>
       <th>xy_fidelity_version</th>
@@ -174,6 +176,8 @@ sb.matches(competition_id=9, season_id=42)
       <td>Regular Season</td>
       <td>VELTINS-Arena</td>
       <td>F. Zwayer</td>
+      <td>David Wagner</td>
+      <td>Adi Hütter</td>
       <td>1.1.0</td>
       <td>2</td>
       <td>2</td>
@@ -195,6 +199,8 @@ sb.matches(competition_id=9, season_id=42)
       <td>Regular Season</td>
       <td>Commerzbank-Arena</td>
       <td>F. Willenborg</td>
+      <td>Adi Hütter</td>
+      <td>Friedhelm Funkel</td>      
       <td>1.1.0</td>
       <td>2</td>
       <td>2</td>
@@ -216,6 +222,8 @@ sb.matches(competition_id=9, season_id=42)
       <td>Regular Season</td>
       <td>VOLKSWAGEN ARENA</td>
       <td>F. Brych</td>
+      <td>Oliver Glasner</td>
+      <td>Marco Rose</td>      
       <td>1.1.0</td>
       <td>2</td>
       <td>2</td>
@@ -237,6 +245,8 @@ sb.matches(competition_id=9, season_id=42)
       <td>Regular Season</td>
       <td>Olympiastadion Berlin</td>
       <td>F. Willenborg</td>
+      <td>Jürgen Klinsmann</td>
+      <td>Christian Streich</td>      
       <td>1.1.0</td>
       <td>2</td>
       <td>2</td>
@@ -258,6 +268,8 @@ sb.matches(competition_id=9, season_id=42)
       <td>Regular Season</td>
       <td>Allianz Arena</td>
       <td>C. Dingert</td>
+      <td>Hans-Dieter Flick</td>
+      <td>Oliver Glasner </td>      
       <td>1.1.0</td>
       <td>2</td>
       <td>2</td>
