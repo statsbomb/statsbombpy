@@ -31,6 +31,26 @@ def matches(
     else:
         matches = public.matches(competition_id, season_id)
     if fmt == "dataframe":
+        home_managers = [
+            (
+                ", ".join(
+                    [m["name"] for m in matches[match]["home_team"]["managers"]]
+                    if "managers" in matches[match]["home_team"]
+                    else ""
+                )
+            )
+            for match in matches
+        ]
+        away_managers = [
+            (
+                ", ".join(
+                    [m["name"] for m in matches[match]["away_team"]["managers"]]
+                    if "managers" in matches[match]["away_team"]
+                    else ""
+                )
+            )
+            for match in matches
+        ]
         matches = pd.DataFrame(matches.values())
         matches["competition"] = matches.competition.apply(
             lambda c: f"{c['country_name']} - {c['competition_name']}"
@@ -42,6 +62,8 @@ def matches(
                 matches[col] = matches[col].apply(
                     lambda x: x["name"] if not pd.isna(x) else x
                 )
+        matches["home_managers"] = home_managers
+        matches["away_managers"] = away_managers
         metadata = matches.pop("metadata")
         for k in ["data_version", "shot_fidelity_version", "xy_fidelity_version"]:
             matches[k] = metadata.apply(lambda x: x.get(k))
@@ -181,43 +203,47 @@ def player_match_stats(
     if api_client.has_auth(creds) is True:
         player_match_stats = api_client.player_match_stats(match_id, creds=creds)
     else:
-        raise Exception("There is currently no open data for aggregated stats, please provide credentials")
+        raise Exception(
+            "There is currently no open data for aggregated stats, please provide credentials"
+        )
     if fmt == "dataframe":
         player_match_stats = pd.json_normalize(player_match_stats)
     return player_match_stats
 
 
 def player_season_stats(
-    competition_id: int, 
-    season_id: int, 
-    fmt="dataframe", 
+    competition_id: int,
+    season_id: int,
+    fmt="dataframe",
     creds: dict = DEFAULT_CREDS,
 ) -> Union[pd.DataFrame, dict]:
     if api_client.has_auth(creds) is True:
         player_season_stats = api_client.player_season_stats(
-            competition_id, 
-            season_id, 
-            creds=creds)
+            competition_id, season_id, creds=creds
+        )
     else:
-        raise Exception("There is currently no open data for aggregated stats, please provide credentials")
+        raise Exception(
+            "There is currently no open data for aggregated stats, please provide credentials"
+        )
     if fmt == "dataframe":
         player_season_stats = pd.json_normalize(player_season_stats)
     return player_season_stats
 
 
 def team_season_stats(
-    competition_id: int, 
-    season_id: int, 
-    fmt="dataframe", 
+    competition_id: int,
+    season_id: int,
+    fmt="dataframe",
     creds: dict = DEFAULT_CREDS,
 ) -> Union[pd.DataFrame, dict]:
     if api_client.has_auth(creds) is True:
         team_season_stats = api_client.team_season_stats(
-            competition_id, 
-            season_id, 
-            creds=creds)
+            competition_id, season_id, creds=creds
+        )
     else:
-        raise Exception("There is currently no open data for aggregated stats, please provide credentials")
+        raise Exception(
+            "There is currently no open data for aggregated stats, please provide credentials"
+        )
     if fmt == "dataframe":
         team_season_stats = pd.json_normalize(team_season_stats)
     return team_season_stats

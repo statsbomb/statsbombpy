@@ -35,6 +35,17 @@ class TestBaseGetters(TestCase):
         matches = sb.matches(competition_id=2, season_id=44, creds={})
         self.assertIsInstance(matches, pd.DataFrame)
 
+        matches = sb.matches(competition_id=11, season_id=1)
+        self.assertEquals(
+            matches.query("match_id == 9695")["home_managers"].iloc[0],
+            "Juan Rubén Uría Corral, Marcelino García Toral",
+        )
+        self.assertEquals(
+            matches.query("match_id == 9695")["away_managers"].iloc[0],
+            "Ernesto Valverde Tejedor",
+        )
+
+
     def test_lineups(self):
         lineups = sb.lineups(match_id=7562)
         self.assertIsInstance(lineups, dict)
