@@ -1,6 +1,6 @@
-import pandas as pd
-
 from unittest import TestCase, main
+
+import pandas as pd
 
 from statsbombpy import sb
 
@@ -44,7 +44,6 @@ class TestBaseGetters(TestCase):
             matches.query("match_id == 9695")["away_managers"].iloc[0],
             "Ernesto Valverde Tejedor",
         )
-
 
     def test_lineups(self):
         lineups = sb.lineups(match_id=7562)
@@ -149,7 +148,9 @@ class TestAggregatedStatsGetters(TestCase):
         player_season_stats = sb.player_season_stats(competition_id=43, season_id=3)
         self.assertIsInstance(player_season_stats, pd.DataFrame)
 
-        player_season_stats = sb.player_season_stats(competition_id=43, season_id=3, fmt="json")
+        player_season_stats = sb.player_season_stats(
+            competition_id=43, season_id=3, fmt="json"
+        )
         self.assertIsInstance(player_season_stats, list)
 
         with self.assertRaises(Exception):
@@ -158,7 +159,9 @@ class TestAggregatedStatsGetters(TestCase):
         player_season_stats = sb.player_season_stats(competition_id=2, season_id=44)
         self.assertIsInstance(player_season_stats, pd.DataFrame)
 
-        player_season_stats = sb.player_season_stats(competition_id=2, season_id=44, fmt="json")
+        player_season_stats = sb.player_season_stats(
+            competition_id=2, season_id=44, fmt="json"
+        )
         self.assertIsInstance(player_season_stats, list)
 
         with self.assertRaises(Exception):
@@ -168,7 +171,9 @@ class TestAggregatedStatsGetters(TestCase):
         team_season_stats = sb.team_season_stats(competition_id=43, season_id=3)
         self.assertIsInstance(team_season_stats, pd.DataFrame)
 
-        team_season_stats = sb.team_season_stats(competition_id=43, season_id=3, fmt="json")
+        team_season_stats = sb.team_season_stats(
+            competition_id=43, season_id=3, fmt="json"
+        )
         self.assertIsInstance(team_season_stats, list)
 
         with self.assertRaises(Exception):
@@ -177,7 +182,9 @@ class TestAggregatedStatsGetters(TestCase):
         team_season_stats = sb.team_season_stats(competition_id=2, season_id=44)
         self.assertIsInstance(team_season_stats, pd.DataFrame)
 
-        team_season_stats = sb.team_season_stats(competition_id=2, season_id=44, fmt="json")
+        team_season_stats = sb.team_season_stats(
+            competition_id=2, season_id=44, fmt="json"
+        )
         self.assertIsInstance(team_season_stats, list)
 
         with self.assertRaises(Exception):

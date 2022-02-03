@@ -1,8 +1,6 @@
 import requests as req
-import warnings
 
 import statsbombpy.entities as ents
-
 from statsbombpy.config import OPEN_DATA_PATHS
 
 
@@ -32,6 +30,7 @@ def events(match_id: int) -> dict:
     events = req.get(OPEN_DATA_PATHS["events"].format(match_id=match_id)).json()
     events = ents.events(events, match_id)
     return events
+
 
 def frames(match_id: int) -> dict:
     frames = req.get(OPEN_DATA_PATHS["frames"].format(match_id=match_id)).json()
