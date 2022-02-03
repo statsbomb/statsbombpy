@@ -79,7 +79,7 @@ def lineups(match_id, fmt="dataframe", creds: dict = DEFAULT_CREDS):
         lineups_ = {}
         for lineup in lineups.values():
             lineup_ = pd.DataFrame(lineup["lineup"])
-            lineup_["country"] = lineup_.country.apply(lambda c: c["name"])
+            lineup_["country"] = lineup_.country.apply(lambda c: c["name"] if isinstance(c, dict) else 'Unknown')
             lineups_[lineup["team_name"]] = lineup_
             lineups = lineups_
     return lineups
