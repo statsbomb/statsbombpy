@@ -3,6 +3,7 @@ import pandas as pd
 from unittest import TestCase, main
 
 from statsbombpy import sb
+from statsbombpy.api_client import matches
 
 
 class TestBaseGetters(TestCase):
@@ -56,6 +57,11 @@ class TestBaseGetters(TestCase):
 
         lineups = sb.lineups(match_id=7562, creds={})
         self.assertIsInstance(lineups, dict)
+
+        lineups = sb.lineups(match_id=301244)
+        self.assertEquals(
+            lineups['Stoke City']['country'].iloc[0], "England",
+        )
 
 
 class TestEventGetters(TestCase):
