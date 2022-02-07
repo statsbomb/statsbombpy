@@ -20,12 +20,12 @@ OPEN_DATA_PATHS = {
 PARALLELL_CALLS_NUM = 4
 
 VERSIONS = {
-    "competitions": "v2",
-    "matches": "v3",
-    "lineups": "v2",
+    "competitions": "v4",
+    "matches": "v5",
+    "lineups": "v3",
     "events": "v6",
     "360-frames": "v1",
-    "player-match-stats": "v1",
-    "player-season-stats": "v1",
-    "team-season-stats": "v1",
+    "player-match-stats": "v2",
+    "player-season-stats": "v2",
+    "team-season-stats": "v2",
 }
