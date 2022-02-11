@@ -1,8 +1,8 @@
 from collections import defaultdict
-from joblib import Memory
 
 import inflect
 import pandas as pd
+from joblib import Memory
 
 
 def flatten_event(event, flatten_attrs):
@@ -17,8 +17,8 @@ def flatten_event(event, flatten_attrs):
     for k, v in event.copy().items():
         if isinstance(v, dict) and "name" in v:
             event[k] = v["name"]
-            if k in ['possession_team', 'player']:
-                event[f"{k}_id"] = v['id']
+            if k in ["possession_team", "player"]:
+                event[f"{k}_id"] = v["id"]
     return event
 
 
@@ -39,7 +39,7 @@ def is_relevant(event, filters):
 
 
 def reduce_events(all_events: dict, fmt: str) -> dict:
-    reduced_events = defaultdict(list)
+    reduced_events: dict = defaultdict(list)
     for events in all_events:
         for ev_type, evs in events.items():
             reduced_events[ev_type] = reduced_events.get(ev_type, []) + evs

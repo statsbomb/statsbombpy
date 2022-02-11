@@ -1,10 +1,8 @@
-import pandas as pd
-import warnings
-
 from functools import partial
 from multiprocessing import Pool
-
 from typing import Union
+
+import pandas as pd
 
 from statsbombpy import api_client, public
 from statsbombpy.config import DEFAULT_CREDS, PARALLELL_CALLS_NUM
@@ -79,7 +77,9 @@ def lineups(match_id, fmt="dataframe", creds: dict = DEFAULT_CREDS):
         lineups_ = {}
         for lineup in lineups.values():
             lineup_ = pd.DataFrame(lineup["lineup"])
-            lineup_["country"] = lineup_.country.apply(lambda c: c["name"])
+            lineup_["country"] = lineup_.country.apply(
+                lambda c: c["name"] if isinstance(c, dict) else "Unknown"
+            )
             lineups_[lineup["team_name"]] = lineup_
             lineups = lineups_
     return lineups
@@ -150,7 +150,7 @@ def frames(
     match_id: int,
     fmt: str = "dataframe",
     creds: dict = DEFAULT_CREDS,
-) -> Union[pd.DataFrame, dict]:
+) -> Union[pd.DataFrame, list, dict]:
     if api_client.has_auth(creds) is True:
         frames = api_client.frames(match_id, creds=creds)
     else:
