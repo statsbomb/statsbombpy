@@ -29,7 +29,3 @@ VERSIONS = {
     "player-season-stats": "v2",
     "team-season-stats": "v2",
 }
-
-class NoAuthWarning(UserWarning):
-    """Warning raised when no user credentials are provided."""
-    pass

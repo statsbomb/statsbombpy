@@ -5,10 +5,14 @@ import requests as req
 from requests_cache import install_cache
 
 import statsbombpy.entities as ents
-from statsbombpy.config import CACHED_CALLS_SECS, HOSTNAME, VERSIONS, NoAuthWarning
+from statsbombpy.config import CACHED_CALLS_SECS, HOSTNAME, VERSIONS
 
 
 install_cache(mkdtemp(), backend="sqlite", expire_after=CACHED_CALLS_SECS)
+
+class NoAuthWarning(UserWarning):
+    """Warning raised when no user credentials are provided."""
+    pass
 
 
 def has_auth(creds):
