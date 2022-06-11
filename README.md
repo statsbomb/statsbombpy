@@ -898,7 +898,7 @@ events = sb.events(match_id=303299)
 
 It's also possible to get distinct dataframes for each event type and/or to have distinct event attributes on their own columns
 ```
-sb.events(match_id=303299, split=True, flatten_attrs=False)["dribbles]
+sb.events(match_id=303299, split=True, flatten_attrs=False)["dribbles"]
 ```
 <table border="1" class="dataframe">
   <thead>
