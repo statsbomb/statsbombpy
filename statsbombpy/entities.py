@@ -16,7 +16,6 @@ def matches(matches: list) -> dict:
     matches_ = {
         match["match_id"]: match
         for match in matches
-        if match["match_status"] == "available"
     }
     return matches_
 
