@@ -122,6 +122,9 @@ class TestFrameGetters(TestCase):
         frames = sb.frames(match_id=3788741, creds={})
         self.assertIsInstance(frames, pd.DataFrame)
 
+        frames = sb.frames(match_id=3847567, creds={})
+        self.assertIsInstance(frames, pd.DataFrame)
+
     def test_competition_frames(self):
         frames = sb.competition_frames(
             country="Europe",
