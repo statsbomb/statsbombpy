@@ -156,9 +156,8 @@ def frames(
     else:
         frames = public.frames(match_id)
     if fmt == "dataframe":
-        frames = pd.json_normalize(
-            frames, "freeze_frame", ["event_uuid", "visible_area", "match_id"]
-        )
+        frames = pd.DataFrame(frames).explode('freeze_frame')
+        frames = pd.concat([frames.drop('freeze_frame', axis=1).reset_index(drop=True), pd.json_normalize(frames.freeze_frame)], axis=1)
         frames = frames.rename(columns={"event_uuid": "id"})
     return frames
 
