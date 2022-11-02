@@ -6,7 +6,11 @@ import pandas as pd
 
 from statsbombpy import api_client, public
 from statsbombpy.config import DEFAULT_CREDS, PARALLELL_CALLS_NUM
-from statsbombpy.helpers import filter_and_group_events, reduce_events
+from statsbombpy.helpers import (
+    filter_and_group_events,
+    merge_events_and_frames,
+    reduce_events,
+)
 
 
 def competitions(fmt="dataframe", creds: dict = DEFAULT_CREDS):
@@ -92,12 +96,17 @@ def events(
     fmt: str = "dataframe",
     flatten_attrs: bool = True,
     creds: dict = DEFAULT_CREDS,
+    include_360_metrics=False,
 ) -> Union[pd.DataFrame, dict]:
 
     if api_client.has_auth(creds) is True:
         events = api_client.events(match_id, creds=creds)
     else:
         events = public.events(match_id)
+
+    if include_360_metrics:
+        frames = _360_frames(match_id, creds=creds)
+        events = merge_events_and_frames(events, frames)
 
     if fmt == "dataframe":
         events = filter_and_group_events(events, filters, fmt, flatten_attrs)
@@ -117,6 +126,7 @@ def competition_events(
     filters: dict = {},
     fmt: str = "dataframe",
     creds: dict = DEFAULT_CREDS,
+    include_360_metrics=False,
 ) -> Union[pd.DataFrame, dict]:
 
     c = competitions(creds=creds, fmt="dict")[country, division, season, gender]
@@ -125,6 +135,7 @@ def competition_events(
         events,
         fmt="json",
         creds=creds,
+        include_360_metrics=include_360_metrics,
     )
     with Pool(PARALLELL_CALLS_NUM) as p:
         matches_events = p.map(
@@ -146,18 +157,39 @@ def competition_events(
     return competition_events
 
 
-def frames(
+def _360_frames(
     match_id: int,
-    fmt: str = "dataframe",
     creds: dict = DEFAULT_CREDS,
 ) -> Union[pd.DataFrame, list, dict]:
     if api_client.has_auth(creds) is True:
         frames = api_client.frames(match_id, creds=creds)
     else:
         frames = public.frames(match_id)
+    return frames
+
+
+def frames(
+    match_id: int,
+    fmt: str = "dataframe",
+    creds: dict = DEFAULT_CREDS,
+) -> Union[pd.DataFrame, list, dict]:
+    frames = _360_frames(match_id, creds)
+    for frame in frames:
+        for ff, d_from_vis_area in zip(
+            frame["freeze_frame"], frame["distances_from_edge_of_visible_area"]
+        ):
+            ff["distance_from_edge_of_visible_area"] = d_from_vis_area["distance"]
+    keys = ["event_uuid", "visible_area", "match_id", "freeze_frame"]
+    frames = [{key: frame[key] for key in keys} for frame in frames]
     if fmt == "dataframe":
-        frames = pd.DataFrame(frames).explode('freeze_frame')
-        frames = pd.concat([frames.drop('freeze_frame', axis=1).reset_index(drop=True), pd.json_normalize(frames.freeze_frame)], axis=1)
+        frames = pd.DataFrame(frames).explode("freeze_frame")
+        frames = pd.concat(
+            [
+                frames.drop("freeze_frame", axis=1).reset_index(drop=True),
+                pd.json_normalize(frames.freeze_frame),
+            ],
+            axis=1,
+        )
         frames = frames.rename(columns={"event_uuid": "id"})
     return frames
 
@@ -186,7 +218,14 @@ def competition_frames(
 
     if fmt == "dataframe":
         competition_frames = pd.concat(
-            [pd.DataFrame(frame) for frame in competition_frames],
+            [
+                pd.json_normalize(
+                    frame,
+                    "freeze_frame",
+                    ["event_uuid", "match_id", "visible_area"],
+                )
+                for frame in competition_frames
+            ],
             axis=0,
             ignore_index=True,
             sort=True,
