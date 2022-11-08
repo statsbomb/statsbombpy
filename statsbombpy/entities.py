@@ -13,10 +13,7 @@ def competitions(competitions: list) -> dict:
 
 
 def matches(matches: list) -> dict:
-    matches_ = {
-        match["match_id"]: match
-        for match in matches
-    }
+    matches_ = {match["match_id"]: match for match in matches}
     return matches_
 
 
