@@ -6,11 +6,8 @@ import pandas as pd
 
 from statsbombpy import api_client, public
 from statsbombpy.config import DEFAULT_CREDS, PARALLELL_CALLS_NUM
-from statsbombpy.helpers import (
-    filter_and_group_events,
-    merge_events_and_frames,
-    reduce_events,
-)
+from statsbombpy.helpers import (filter_and_group_events,
+                                 merge_events_and_frames, reduce_events)
 
 
 def competitions(fmt="dataframe", creds: dict = DEFAULT_CREDS):
