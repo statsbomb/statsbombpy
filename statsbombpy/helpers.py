@@ -49,6 +49,33 @@ def reduce_events(all_events: dict, fmt: str) -> dict:
     return reduced_events
 
 
+def merge_events_and_frames(
+    events: dict,
+    frames: list,
+    drop_keys=[
+        "event_uuid",
+        "visible_area",
+        "match_id",
+        "freeze_frame",
+        "visible_player_counts",
+        "distances_from_edge_of_visible_area",
+    ],
+) -> dict:
+    frames = {frame["event_uuid"]: frame for frame in frames}
+    events = {k: {**v, **frames.get(k, {})} for k, v in events.items()}
+    for _, event in events.items():
+        for key in list(event):
+            if key == "visible_player_counts":
+                for team in event[key]:
+                    if team["team_id"] == event["team"]["id"]:
+                        event["visible_teammates"] = team["count"]
+                    else:
+                        event["visible_opponents"] = team["count"]
+            if key in drop_keys:
+                del event[key]
+    return events
+
+
 engine = inflect.engine()
 
 cachedir = ".cache/"

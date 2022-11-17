@@ -36,12 +36,6 @@ class TestBaseGetters(TestCase):
         matches = sb.matches(competition_id=2, season_id=44, creds={})
         self.assertIsInstance(matches, pd.DataFrame)
 
-        matches = sb.matches(competition_id=3, season_id=108)
-        self.assertEquals(
-            matches.query("match_id == 3803206")["home_managers"].iloc[0],
-            "Steven Reid, Steve Cooper",
-        )
-
         matches = sb.matches(competition_id=11, season_id=1)
         self.assertEquals(
             matches.query("match_id == 9695")["away_managers"].iloc[0],
@@ -61,7 +55,8 @@ class TestBaseGetters(TestCase):
 
         lineups = sb.lineups(match_id=301244)
         self.assertEquals(
-            lineups['Stoke City']['country'].iloc[0], "England",
+            lineups["Stoke City"]["country"].iloc[0],
+            "England",
         )
 
 
@@ -86,6 +81,13 @@ class TestEventGetters(TestCase):
         self.assertFalse("shot_statsbomb_xg" in events.columns)
         self.assertTrue("shot" in events.columns)
 
+        events = sb.events(match_id=3837323, fmt="json", include_360_metrics=True)
+        self.assertIsInstance(events, dict)
+
+        events = sb.events(match_id=3837323, include_360_metrics=True)
+        self.assertIsInstance(events, pd.DataFrame)
+        self.assertTrue("visible_teammates" in events.columns)
+
     def test_competition_events(self):
         events = sb.competition_events(
             country="Europe",
@@ -106,9 +108,19 @@ class TestEventGetters(TestCase):
         events = sb.competition_events(
             country="Europe",
             division="Champions League",
-            season="2018/2019",
+            season="2022/2023",
             fmt="json",
         )
+        self.assertIsInstance(events, dict)
+
+        events = sb.competition_events(
+            country="Europe",
+            division="Champions League",
+            season="2022/2023",
+            include_360_metrics=True,
+        )
+        self.assertIsInstance(events, pd.DataFrame)
+        self.assertTrue("visible_teammates" in events.columns)
 
 
 class TestFrameGetters(TestCase):
@@ -129,15 +141,16 @@ class TestFrameGetters(TestCase):
         frames = sb.competition_frames(
             country="Europe",
             division="Champions League",
-            season="2021/2022",
+            season="2022/2023",
             gender="male",
         )
         self.assertIsInstance(frames, pd.DataFrame)
+        self.assertIsInstance(frames.distance_from_edge_of_visible_area[0], float)
 
         frames = sb.competition_frames(
             country="Europe",
             division="Champions League",
-            season="2021/2022",
+            season="2022/2023",
             gender="male",
             fmt="json",
         )

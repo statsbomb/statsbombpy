@@ -1198,8 +1198,797 @@ grouped_events["dribbles"]
   </tbody>
 </table>
 
+### 360 Metrics
+If you have access to 360 data for a competition, you can set `include_360_metrics=True` in the `events()` and `competition_events()` functions to retrieve 360 metrics such a line breaking passess together with the event data.
+
+```
+events = sb.events(match_id=3837323, include_360_metrics=True)
+comp_events = sb.competition_events(
+            country="Europe",
+            division="Champions League",
+            season="2022/2023",
+            include_360_metrics=True,
+)
+comp_events
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>50_50</th>
+      <th>bad_behaviour_card</th>
+      <th>ball_receipt_exceeds_distance</th>
+      <th>ball_receipt_in_space</th>
+      <th>ball_receipt_outcome</th>
+      <th>ball_recovery_offensive</th>
+      <th>ball_recovery_recovery_failure</th>
+      <th>block_deflection</th>
+      <th>block_offensive</th>
+      <th>block_save_block</th>
+      <th>carry_end_location</th>
+      <th>clearance_aerial_won</th>
+      <th>clearance_body_part</th>
+      <th>clearance_head</th>
+      <th>clearance_left_foot</th>
+      <th>clearance_other</th>
+      <th>clearance_right_foot</th>
+      <th>counterpress</th>
+      <th>distance_to_nearest_defender</th>
+      <th>dribble_no_touch</th>
+      <th>dribble_nutmeg</th>
+      <th>dribble_outcome</th>
+      <th>dribble_overrun</th>
+      <th>duel_outcome</th>
+      <th>duel_type</th>
+      <th>duration</th>
+      <th>foul_committed_advantage</th>
+      <th>foul_committed_card</th>
+      <th>foul_committed_offensive</th>
+      <th>foul_committed_penalty</th>
+      <th>foul_committed_type</th>
+      <th>foul_won_advantage</th>
+      <th>foul_won_defensive</th>
+      <th>foul_won_penalty</th>
+      <th>goalkeeper_body_part</th>
+      <th>goalkeeper_end_location</th>
+      <th>goalkeeper_lost_in_play</th>
+      <th>goalkeeper_lost_out</th>
+      <th>goalkeeper_outcome</th>
+      <th>goalkeeper_position</th>
+      <th>goalkeeper_punched_out</th>
+      <th>goalkeeper_shot_saved_off_target</th>
+      <th>goalkeeper_shot_saved_to_post</th>
+      <th>goalkeeper_success_in_play</th>
+      <th>goalkeeper_technique</th>
+      <th>goalkeeper_type</th>
+      <th>half_start_late_video_start</th>
+      <th>id</th>
+      <th>index</th>
+      <th>injury_stoppage_in_chain</th>
+      <th>interception_outcome</th>
+      <th>line_breaking_pass</th>
+      <th>location</th>
+      <th>minute</th>
+      <th>miscontrol_aerial_won</th>
+      <th>num_defenders_on_goal_side_of_actor</th>
+      <th>obv_against_after</th>
+      <th>obv_against_before</th>
+      <th>obv_against_net</th>
+      <th>obv_for_after</th>
+      <th>obv_for_before</th>
+      <th>obv_for_net</th>
+      <th>obv_total_net</th>
+      <th>off_camera</th>
+      <th>out</th>
+      <th>pass_aerial_won</th>
+      <th>pass_angle</th>
+      <th>pass_assisted_shot_id</th>
+      <th>pass_body_part</th>
+      <th>pass_cross</th>
+      <th>pass_cut_back</th>
+      <th>pass_deflected</th>
+      <th>pass_end_location</th>
+      <th>pass_goal_assist</th>
+      <th>pass_height</th>
+      <th>pass_inswinging</th>
+      <th>pass_length</th>
+      <th>pass_miscommunication</th>
+      <th>pass_no_touch</th>
+      <th>pass_outcome</th>
+      <th>pass_outswinging</th>
+      <th>pass_recipient</th>
+      <th>pass_shot_assist</th>
+      <th>pass_straight</th>
+      <th>pass_switch</th>
+      <th>pass_technique</th>
+      <th>pass_through_ball</th>
+      <th>pass_type</th>
+      <th>pass_xclaim</th>
+      <th>period</th>
+      <th>play_pattern</th>
+      <th>player</th>
+      <th>player_id</th>
+      <th>player_off_permanent</th>
+      <th>position</th>
+      <th>possession</th>
+      <th>possession_team</th>
+      <th>possession_team_id</th>
+      <th>related_events</th>
+      <th>second</th>
+      <th>shot_aerial_won</th>
+      <th>shot_body_part</th>
+      <th>shot_deflected</th>
+      <th>shot_end_location</th>
+      <th>shot_first_time</th>
+      <th>shot_freeze_frame</th>
+      <th>shot_key_pass_id</th>
+      <th>shot_one_on_one</th>
+      <th>shot_open_goal</th>
+      <th>shot_outcome</th>
+      <th>shot_redirect</th>
+      <th>shot_saved_off_target</th>
+      <th>shot_saved_to_post</th>
+      <th>shot_statsbomb_xg</th>
+      <th>shot_statsbomb_xg2</th>
+      <th>shot_technique</th>
+      <th>shot_type</th>
+      <th>substitution_outcome</th>
+      <th>substitution_replacement</th>
+      <th>team</th>
+      <th>timestamp</th>
+      <th>type</th>
+      <th>under_pressure</th>
+      <th>visible_opponents</th>
+      <th>visible_teammates</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>3479244f-8234-43c9-a389-4ce587062b48</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>Regular Play</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>Real Madrid</td>
+      <td>220</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Real Madrid</td>
+      <td>00:00:00.000</td>
+      <td>Starting XI</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>c4f5a51b-741e-4920-ac32-02349b1f2755</td>
+      <td>2</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>Regular Play</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>Real Madrid</td>
+      <td>220</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Celtic</td>
+      <td>00:00:00.000</td>
+      <td>Starting XI</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>27be67e7-fdb5-4db9-92b6-8f3214cecec4</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>Regular Play</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>Juventus</td>
+      <td>224</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Juventus</td>
+      <td>00:00:00.000</td>
+      <td>Starting XI</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>819c381e-29c1-4f10-a6c3-acc3181cec14</td>
+      <td>2</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>Regular Play</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>Juventus</td>
+      <td>224</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Paris Saint-Germain</td>
+      <td>00:00:00.000</td>
+      <td>Starting XI</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>e6d42d87-c78a-4286-94fd-4095e9f7b16f</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>Regular Play</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>Manchester City</td>
+      <td>36</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Manchester City</td>
+      <td>00:00:00.000</td>
+      <td>Starting XI</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+
 ### 360 Frames
 
+The frame functions will return the raw 360 freeze frame data along with the visible area for each frame. This is returned at the player level so you have multiple rows per frame/event_id. 
 ```
 match_frames = sb.frames(match_id=3772072, fmt='dataframe')
 comp_frames = sb.competition_frames(
@@ -1210,63 +1999,75 @@ comp_frames = sb.competition_frames(
 match_frames
 ```
 
-<table border=\"1\" class=\"dataframe\">
+<table border="1" class="dataframe">
   <thead>
-    <tr style=\"text-align: right;\">
+    <tr style="text-align: right;">
       <th></th>
-      <th>teammate</th>
       <th>actor</th>
+      <th>distance_from_edge_of_visible_area</th>
+      <th>event_uuid</th>
       <th>keeper</th>
       <th>location</th>
-      <th>id</th>
+      <th>match_id</th>
+      <th>teammate</th>
       <th>visible_area</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>True</td>
       <td>False</td>
+      <td>5.183739</td>
+      <td>065b15cc-b550-48de-9a1e-a9608d8e6c6d</td>
       <td>False</td>
-      <td>[39.27561, 34.34118]</td>
-      <td>ca3c2fcb-e578-4103-a2b6-3c3da50a0009</td>
-      <td>[0.0, 80.0, 0.0, 64.3063432537811, 38.6449675910462, 0.0, 84.2004689919974, 0.0, 120.0, 53.0370178246748, 120.0, 80.0, 0.0, 80.0]</td>
+      <td>[79.14114105224532, 12.646560364129726]</td>
+      <td>3855869</td>
+      <td>False</td>
+      <td>[50.8965834880119, 80.0, 55.8915648466696, 6.76382112514142, 80.0765213141343, 1.48859955554994, 113.056993108772, 80.0, 50.8965834880119, 80.0]</td>
     </tr>
     <tr>
       <th>1</th>
+      <td>False</td>
+      <td>7.784551</td>
+      <td>065b15cc-b550-48de-9a1e-a9608d8e6c6d</td>
+      <td>False</td>
+      <td>[80.68650097437124, 23.040779651892883]</td>
+      <td>3855869</td>
       <td>True</td>
-      <td>False</td>
-      <td>False</td>
-      <td>[45.01009, 22.54314]</td>
-      <td>ca3c2fcb-e578-4103-a2b6-3c3da50a0009</td>
-      <td>[0.0, 80.0, 0.0, 64.3063432537811, 38.6449675910462, 0.0, 84.2004689919974, 0.0, 120.0, 53.0370178246748, 120.0, 80.0, 0.0, 80.0]</td>
+      <td>[50.8965834880119, 80.0, 55.8915648466696, 6.76382112514142, 80.0765213141343, 1.48859955554994, 113.056993108772, 80.0, 50.8965834880119, 80.0]</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>True</td>
       <td>False</td>
+      <td>8.873694</td>
+      <td>065b15cc-b550-48de-9a1e-a9608d8e6c6d</td>
       <td>False</td>
-      <td>[46.438095, 51.300377]</td>
-      <td>ca3c2fcb-e578-4103-a2b6-3c3da50a0009</td>
-      <td>[0.0, 80.0, 0.0, 64.3063432537811, 38.6449675910462, 0.0, 84.2004689919974, 0.0, 120.0, 53.0370178246748, 120.0, 80.0, 0.0, 80.0]</td>
+      <td>[80.20033992405365, 24.695673759901382]</td>
+      <td>3855869</td>
+      <td>False</td>
+      <td>[50.8965834880119, 80.0, 55.8915648466696, 6.76382112514142, 80.0765213141343, 1.48859955554994, 113.056993108772, 80.0, 50.8965834880119, 80.0]</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>True</td>
       <td>False</td>
+      <td>9.738309</td>
+      <td>065b15cc-b550-48de-9a1e-a9608d8e6c6d</td>
       <td>False</td>
-      <td>[53.26781, 30.843254]</td>
-      <td>ca3c2fcb-e578-4103-a2b6-3c3da50a0009</td>
-      <td>[0.0, 80.0, 0.0, 64.3063432537811, 38.6449675910462, 0.0, 84.2004689919974, 0.0, 120.0, 53.0370178246748, 120.0, 80.0, 0.0, 80.0]</td>
+      <td>[82.43349155444821, 32.24426347120625]</td>
+      <td>3855869</td>
+      <td>False</td>
+      <td>[50.8965834880119, 80.0, 55.8915648466696, 6.76382112514142, 80.0765213141343, 1.48859955554994, 113.056993108772, 80.0, 50.8965834880119, 80.0]</td>
     </tr>
     <tr>
       <th>4</th>
+      <td>False</td>
+      <td>11.049633</td>
+      <td>065b15cc-b550-48de-9a1e-a9608d8e6c6d</td>
+      <td>False</td>
+      <td>[81.320294294838, 32.98015558905158]</td>
+      <td>3855869</td>
       <td>True</td>
-      <td>False</td>
-      <td>False</td>
-      <td>[55.60041, 10.39319]</td>
-      <td>ca3c2fcb-e578-4103-a2b6-3c3da50a0009</td>
-      <td>[0.0, 80.0, 0.0, 64.3063432537811, 38.6449675910462, 0.0, 84.2004689919974, 0.0, 120.0, 53.0370178246748, 120.0, 80.0, 0.0, 80.0]</td>
+      <td>[50.8965834880119, 80.0, 55.8915648466696, 6.76382112514142, 80.0765213141343, 1.48859955554994, 113.056993108772, 80.0, 50.8965834880119, 80.0]</td>
     </tr>
   </tbody>
 </table>
