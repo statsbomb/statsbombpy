@@ -61,14 +61,9 @@ def merge_events_and_frames(
         "distances_from_edge_of_visible_area",
     ],
 ) -> dict:
-    # Convert frames list to dict
     frames = {frame["event_uuid"]: frame for frame in frames}
-
-    # Merge frame metrics into events
     events = {k: {**v, **frames.get(k, {})} for k, v in events.items()}
-
-    # Clean up visible player counts and cull unnecessary fields
-    for event_id, event in events.items():
+    for _, event in events.items():
         for key in list(event):
             if key == "visible_player_counts":
                 for team in event[key]:

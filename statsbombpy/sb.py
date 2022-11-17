@@ -6,8 +6,11 @@ import pandas as pd
 
 from statsbombpy import api_client, public
 from statsbombpy.config import DEFAULT_CREDS, PARALLELL_CALLS_NUM
-from statsbombpy.helpers import (filter_and_group_events,
-                                 merge_events_and_frames, reduce_events)
+from statsbombpy.helpers import (
+    filter_and_group_events,
+    merge_events_and_frames,
+    reduce_events,
+)
 
 
 def competitions(fmt="dataframe", creds: dict = DEFAULT_CREDS):
@@ -172,7 +175,7 @@ def frames(
 ) -> Union[pd.DataFrame, list, dict]:
     frames = _360_frames(match_id, creds)
     for frame in frames:
-        if "distances_from_edge_of_visible_area" in frame.keys():
+        if "distances_from_edge_of_visible_area" in frame:
             for ff, d_from_vis_area in zip(
                 frame["freeze_frame"], frame["distances_from_edge_of_visible_area"]
             ):
