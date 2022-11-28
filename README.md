@@ -1201,6 +1201,8 @@ grouped_events["dribbles"]
 ### 360 Metrics
 If you have access to 360 data for a competition, you can set `include_360_metrics=True` in the `events()` and `competition_events()` functions to retrieve 360 metrics such a line breaking passess together with the event data.
 
+The open data does not include the 360 metrics. This is currently only available to customers with a data subscription.
+
 ```
 events = sb.events(match_id=3837323, include_360_metrics=True)
 comp_events = sb.competition_events(

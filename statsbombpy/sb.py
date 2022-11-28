@@ -99,6 +99,8 @@ def events(
     include_360_metrics=False,
 ) -> Union[pd.DataFrame, dict]:
 
+    if not api_client.has_auth(creds) and include_360_metrics:
+        raise Exception("360 metrics not available in open data")
     if api_client.has_auth(creds) is True:
         events = api_client.events(match_id, creds=creds)
     else:
