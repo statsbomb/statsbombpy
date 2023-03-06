@@ -55,7 +55,6 @@ def merge_events_and_frames(
     drop_keys=[
         "event_uuid",
         "visible_area",
-        "match_id",
         "freeze_frame",
         "visible_player_counts",
         "distances_from_edge_of_visible_area",
