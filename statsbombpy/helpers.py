@@ -17,7 +17,7 @@ def flatten_event(event, flatten_attrs):
     for k, v in event.copy().items():
         if isinstance(v, dict) and "name" in v:
             event[k] = v["name"]
-            if k in ["possession_team", "player"]:
+            if k in ["possession_team", "player", "team"]:
                 event[f"{k}_id"] = v["id"]
     return event
 
