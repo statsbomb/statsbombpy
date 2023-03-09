@@ -22,10 +22,10 @@ PARALLELL_CALLS_NUM = 4
 VERSIONS = {
     "competitions": "v4",
     "matches": "v5",
-    "lineups": "v3",
-    "events": "v6",
+    "lineups": "v4",
+    "events": "v7",
     "360-frames": "v2",
-    "player-match-stats": "v2",
-    "player-season-stats": "v2",
+    "player-match-stats": "v3",
+    "player-season-stats": "v3",
     "team-season-stats": "v2",
 }
