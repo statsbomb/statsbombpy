@@ -7,7 +7,7 @@ with open(os.path.join(os.path.abspath(os.path.dirname(__file__)), "README.md"))
 
 setup(
     name="statsbombpy",
-    version="1.7.0",
+    version="1.7.1",
     description="easily stream StatsBomb data into Python",
     long_description=README,
     long_description_content_type="text/markdown",
@@ -17,8 +17,6 @@ setup(
     author_email="support@statsbombservices.com",
     packages=["statsbombpy"],
     install_requires=[
-        "joblib",
-        "inflect",
         "nose2",
         "pandas",
         "requests",
