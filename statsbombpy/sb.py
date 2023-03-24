@@ -5,7 +5,7 @@ from typing import Union
 import pandas as pd
 
 from statsbombpy import api_client, public
-from statsbombpy.config import DEFAULT_CREDS, PARALLELL_CALLS_NUM
+from statsbombpy.config import DEFAULT_CREDS, MAX_CONCURRENCY
 from statsbombpy.helpers import (
     filter_and_group_events,
     merge_events_and_frames,
@@ -139,7 +139,7 @@ def competition_events(
         creds=creds,
         include_360_metrics=include_360_metrics,
     )
-    with Pool(PARALLELL_CALLS_NUM) as p:
+    with Pool(MAX_CONCURRENCY) as p:
         matches_events = p.map(
             events_call,
             matches(c["competition_id"], c["season_id"], fmt="dict", creds=creds),
@@ -213,7 +213,7 @@ def competition_frames(
         fmt="json",
         creds=creds,
     )
-    with Pool(PARALLELL_CALLS_NUM) as p:
+    with Pool(MAX_CONCURRENCY) as p:
         competition_frames = p.map(
             frames_call,
             matches(c["competition_id"], c["season_id"], fmt="dict", creds=creds),

@@ -1,4 +1,5 @@
 import os
+import multiprocessing
 
 CACHED_CALLS_SECS = 600
 
@@ -17,7 +18,13 @@ OPEN_DATA_PATHS = {
     "frames": "https://raw.githubusercontent.com/statsbomb/open-data/master/data/three-sixty/{match_id}.json",
 }
 
-PARALLELL_CALLS_NUM = 4
+if "SB_CORES" in os.environ:
+    MAX_CONCURRENCY = int(os.environ["SB_CORES"])
+else:
+    try:
+        MAX_CONCURRENCY = max(multiprocessing.cpu_count() - 2, 4)
+    except NotImplementedError:
+        MAX_CONCURRENCY = 4
 
 VERSIONS = {
     "competitions": "v4",
