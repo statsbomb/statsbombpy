@@ -3,6 +3,8 @@ import requests as req
 import statsbombpy.entities as ents
 from statsbombpy.config import OPEN_DATA_PATHS
 
+def query_api():
+
 
 def competitions():
     competitions = req.get(OPEN_DATA_PATHS["competitions"]).json()
