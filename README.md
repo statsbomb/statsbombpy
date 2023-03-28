@@ -4,7 +4,7 @@
 
 Brought to you by StatsBomb, this repository is a Python package that allows users to easily stream StatsBomb data into Python using your log in credentials for the API or free data from our GitHub page. **API access is for paying customers only**
 
-**Support: support@statsbombservices.com**
+**Support: support@statsbomb.com**
 
 
 ## Installation Instructions
