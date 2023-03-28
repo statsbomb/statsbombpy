@@ -1,13 +1,10 @@
 # statsbombpy
 
-#### By: StatsBomb
+[![PyPI version](https://badge.fury.io/py/statsbombpy.svg)](https://badge.fury.io/py/statsbombpy)
 
-#### Support: support@statsbombservices.com
+Brought to you by StatsBomb, this repository is a Python package that allows users to easily stream StatsBomb data into Python using your log in credentials for the API or free data from our GitHub page. **API access is for paying customers only**
 
-#### Updated February 23, 2021.
-
-This repository is a Python package to easily stream StatsBomb data into Python using your log in credentials for the API or free data from our GitHub page. **API access is for paying customers only**
-
+**Support: support@statsbombservices.com**
 
 
 ## Installation Instructions
@@ -20,7 +17,9 @@ This repository is a Python package to easily stream StatsBomb data into Python 
 `nose2 -v --pretty-assert`
 
 
-## Authentication
+## Configuration
+
+### Authentication
 
 #### Environment Variables
 Authentication can be done by setting environment variables named `SB_USERNAME` and `SB_PASSWORD` to your login credentials.
@@ -28,6 +27,10 @@ Authentication can be done by setting environment variables named `SB_USERNAME` 
 #### Manual Calls
 Alternatively, if you don't want to use environment variables, all functions accept an argument `creds` to pass your login credentials in the format `{"user": "", "passwd": ""}`
 
+### Concurrency
+You can specify how many of your computer's cores to use when running the `sb.competition_events()` and `sb.competition_frames()` functions by setting the environment variable `SB_CORES` to the number you want to use. Allowing statsbombpy to use more cores will speed up those functions.
+
+If you don't have an environment variable set we will try to detect the number of cores in your system and use 2 less than that number. If we cannot detect the number of cores we set the number to 4.
 
 ## Open Data
 StatsBomb's open data can be accessed without the need of authentication.

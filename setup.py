@@ -12,14 +12,19 @@ setup(
     long_description=README,
     long_description_content_type="text/markdown",
     url="https://github.com/statsbomb/statsbombpy",
-    download_url="https://github.com/statsbomb/statsbombpy/archive/v1.0.tar.gz",
     author="StatsBomb",
     author_email="support@statsbombservices.com",
     packages=["statsbombpy"],
     install_requires=[
-        "nose2",
         "pandas",
         "requests",
         "requests-cache",
+        "inflect",
+        "joblib",
     ],
+    extras_require={
+        'dev': [
+            "nose2",
+        ]
+    },
 )
