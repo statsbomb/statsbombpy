@@ -5,6 +5,8 @@ import pandas as pd
 PLURALS = {
     'Starting XI': 'starting_xis',
     'Half Start': 'half_starts',
+    'Camera On': 'camera ons',
+    'Camera off': 'camera offs',
     'Pass': 'passes',
     'Ball Receipt*': 'ball_receipts',
     'Carry': 'carrys',
@@ -59,7 +61,7 @@ def flatten_event(event, flatten_attrs):
 def filter_and_group_events(events, filters, fmt, flatten_attrs):
     events_ = defaultdict(list)
     for ev in events.values():
-        ev_type = PLURALS.get(ev["type"]["name"])
+        ev_type = PLURALS[ev["type"]["name"]]
         if not is_relevant(ev, filters):
             continue
         if fmt == "dataframe":
