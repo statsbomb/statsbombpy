@@ -1,6 +1,6 @@
 # statsbombpy
 
-[![PyPI version](https://badge.fury.io/py/statsbombpy.svg)](https://badge.fury.io/py/statsbombpy)
+[![PyPI version](https://badge.fury.io/py/statsbombpy.svg?)](https://badge.fury.io/py/statsbombpy)
 
 Brought to you by StatsBomb, this repository is a Python package that allows users to easily stream StatsBomb data into Python using your log in credentials for the API or free data from our GitHub page. **API access is for paying customers only**
 
