@@ -1,4 +1,4 @@
-# statsbombpy <img src="https://github.com/statsbomb/logos/blob/main/StatsBombPython_Lock.svg" align="right" height="40"/>
+# statsbombpy <picture><source media="(prefers-color-scheme: dark)" srcset="https://github.com/statsbomb/logos/blob/main/StatsBombPython_Lock_Light.svg"><source media="(prefers-color-scheme: light)" srcset="https://github.com/statsbomb/logos/blob/main/StatsBombPython_Lock.svg"><img alt="StatsBombPython_Lock" src="https://github.com/statsbomb/logos/blob/main/StatsBombPython_Lock.svg" align="right" height="40"></picture>
 
 [![PyPI version](https://badge.fury.io/py/statsbombpy.svg?)](https://badge.fury.io/py/statsbombpy)
 
