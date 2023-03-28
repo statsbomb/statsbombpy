@@ -1,4 +1,4 @@
-# statsbombpy
+# statsbombpy <img src="https://github.com/statsbomb/logos/blob/main/StatsBombPython_Lock.svg" align="right" height="40"/>
 
 [![PyPI version](https://badge.fury.io/py/statsbombpy.svg?)](https://badge.fury.io/py/statsbombpy)
 
