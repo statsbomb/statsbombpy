@@ -7,7 +7,7 @@ with open(os.path.join(os.path.abspath(os.path.dirname(__file__)), "README.md"))
 
 setup(
     name="statsbombpy",
-    version="1.9.0",
+    version="1.9.1",
     description="easily stream StatsBomb data into Python",
     long_description=README,
     long_description_content_type="text/markdown",
