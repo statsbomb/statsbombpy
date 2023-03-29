@@ -1,10 +1,10 @@
-# statsbombpy
+# statsbombpy <picture><source media="(prefers-color-scheme: dark)" srcset="https://github.com/statsbomb/logos/blob/main/StatsBombPython_Lock_Light.svg"><source media="(prefers-color-scheme: light)" srcset="https://github.com/statsbomb/logos/blob/main/StatsBombPython_Lock.svg"><img alt="StatsBombPython_Lock" src="https://github.com/statsbomb/logos/blob/main/StatsBombPython_Lock.svg" align="right" height="40"></picture>
 
-[![PyPI version](https://badge.fury.io/py/statsbombpy.svg)](https://badge.fury.io/py/statsbombpy)
+[![PyPI version](https://badge.fury.io/py/statsbombpy.svg?)](https://badge.fury.io/py/statsbombpy)
 
 Brought to you by StatsBomb, this repository is a Python package that allows users to easily stream StatsBomb data into Python using your log in credentials for the API or free data from our GitHub page. **API access is for paying customers only**
 
-**Support: support@statsbombservices.com**
+**Support: support@statsbomb.com**
 
 
 ## Installation Instructions

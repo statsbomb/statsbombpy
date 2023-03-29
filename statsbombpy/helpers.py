@@ -1,8 +1,44 @@
 from collections import defaultdict
 
-import inflect
 import pandas as pd
-from joblib import Memory
+
+PLURALS = {
+    'Starting XI': 'starting_xis',
+    'Half Start': 'half_starts',
+    'Camera On': 'camera ons',
+    'Camera off': 'camera offs',
+    'Pass': 'passes',
+    'Ball Receipt*': 'ball_receipts',
+    'Carry': 'carrys',
+    'Pressure': 'pressures',
+    'Foul Committed': 'foul_committeds',
+    'Foul Won': 'foul_wons',
+    'Duel': 'duels',
+    'Interception': 'interceptions',
+    'Block': 'blocks',
+    'Referee Ball-Drop': 'referee_ball_drops',
+    'Ball Recovery': 'ball_recoverys',
+    'Dispossessed': 'dispossesseds',
+    'Clearance': 'clearances',
+    'Dribble': 'dribbles',
+    'Miscontrol': 'miscontrols',
+    'Shot': 'shots',
+    'Goal Keeper': 'goal_keepers',
+    'Dribbled Past': 'dribbled_pasts',
+    'Injury Stoppage': 'injury_stoppages',
+    'Half End': 'half_ends',
+    'Substitution': 'substitutions',
+    'Shield': 'shields',
+    'Tactical Shift': 'tactical_shifts',
+    'Own Goal Against': 'own_goal_againsts',
+    'Own Goal For': 'own_goal_fors',
+    'Bad Behaviour': 'bad_behaviours',
+    'Player Off': 'player_offs',
+    'Player On': 'player_ons',
+    '50/50': '50/50s',
+    'Error': 'errors',
+    'Offside': 'offsides'
+}
 
 
 def flatten_event(event, flatten_attrs):
@@ -25,7 +61,7 @@ def flatten_event(event, flatten_attrs):
 def filter_and_group_events(events, filters, fmt, flatten_attrs):
     events_ = defaultdict(list)
     for ev in events.values():
-        ev_type = pluralize(ev["type"]["name"])
+        ev_type = PLURALS[ev["type"]["name"]]
         if not is_relevant(ev, filters):
             continue
         if fmt == "dataframe":
@@ -75,17 +111,3 @@ def merge_events_and_frames(
     return events
 
 
-engine = inflect.engine()
-
-cachedir = ".cache/"
-memory = Memory(cachedir, verbose=0)
-
-
-@memory.cache
-def pluralize(word):
-    word = engine.plural(word)
-    word = word.replace("*", "")
-    word = word.replace("-", "_")
-    word = word.replace(" ", "_")
-    word = word.lower()
-    return word
