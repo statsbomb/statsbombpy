@@ -30,9 +30,9 @@ VERSIONS = {
     "competitions": "v4",
     "matches": "v5",
     "lineups": "v4",
-    "events": "v7",
+    "events": "v8",
     "360-frames": "v2",
-    "player-match-stats": "v3",
-    "player-season-stats": "v3",
+    "player-match-stats": "v4",
+    "player-season-stats": "v4",
     "team-season-stats": "v2",
 }
