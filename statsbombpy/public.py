@@ -1,52 +1,49 @@
 import requests as req
-from json.decoder import JSONDecodeError
 
 import statsbombpy.entities as ents
 from statsbombpy.config import OPEN_DATA_PATHS
 
-def handle_json_error(func):
-    def wrapper(*args, **kwargs):
-        try:
-            result = func(*args, **kwargs)
-        except JSONDecodeError:
-            raise ValueError("The id specified has not been found")
-        return result
-    return wrapper
-
 
 def competitions():
-    competitions = req.get(OPEN_DATA_PATHS["competitions"]).json()
+    response = req.get(OPEN_DATA_PATHS["competitions"])
+    response.raise_for_status()
+    competitions = response.json()
     competitions = ents.competitions(competitions)
     return competitions
 
 
-@handle_json_error
 def matches(competition_id: int, season_id: int) -> dict:
-    matches = req.get(
+    response = req.get(
         OPEN_DATA_PATHS["matches"].format(
             competition_id=competition_id, season_id=season_id
         )
-    ).json()
+    )
+    response.raise_for_status()
+
+    matches = response.json()
     matches = ents.matches(matches)
     return matches
 
 
-@handle_json_error
 def lineups(match_id: int):
-    lineups = req.get(OPEN_DATA_PATHS["lineups"].format(match_id=match_id)).json()
+    response = req.get(OPEN_DATA_PATHS["lineups"].format(match_id=match_id))
+    response.raise_for_status()
+    lineups = response.json()
     lineups = ents.lineups(lineups)
     return lineups
 
 
-@handle_json_error
 def events(match_id: int) -> dict:
-    events = req.get(OPEN_DATA_PATHS["events"].format(match_id=match_id)).json()
+    response = req.get(OPEN_DATA_PATHS["events"].format(match_id=match_id))
+    response.raise_for_status()
+    events = response.json()
     events = ents.events(events, match_id)
     return events
 
 
-@handle_json_error
 def frames(match_id: int) -> dict:
-    frames = req.get(OPEN_DATA_PATHS["frames"].format(match_id=match_id)).json()
+    response = req.get(OPEN_DATA_PATHS["frames"].format(match_id=match_id))
+    response.raise_for_status()
+    frames = response.json()
     frames = ents.frames(frames, match_id)
     return frames
