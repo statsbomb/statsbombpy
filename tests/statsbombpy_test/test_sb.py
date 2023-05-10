@@ -1,9 +1,8 @@
 from unittest import TestCase, main
 
 import pandas as pd
-
+from requests.exceptions import HTTPError
 from statsbombpy import sb
-from statsbombpy.api_client import matches
 
 
 class TestBaseGetters(TestCase):
@@ -42,6 +41,10 @@ class TestBaseGetters(TestCase):
             "Ernesto Valverde Tejedor",
         )
 
+        with self.assertRaises(HTTPError) as cm:
+            matches = sb.matches(competition_id=1, season_id=1, creds={})
+        self.assertEqual(cm.exception.response.status_code, 404)
+
     def test_lineups(self):
         lineups = sb.lineups(match_id=7562)
         self.assertIsInstance(lineups, dict)
@@ -58,6 +61,10 @@ class TestBaseGetters(TestCase):
             lineups["Stoke City"]["country"].iloc[0],
             "England",
         )
+
+        with self.assertRaises(HTTPError) as cm:
+            lineups = sb.lineups(match_id=1, creds={})
+        self.assertEqual(cm.exception.response.status_code, 404)
 
 
 class TestEventGetters(TestCase):
@@ -87,6 +94,10 @@ class TestEventGetters(TestCase):
         events = sb.events(match_id=3837323, include_360_metrics=True)
         self.assertIsInstance(events, pd.DataFrame)
         self.assertTrue("visible_teammates" in events.columns)
+
+        with self.assertRaises(HTTPError) as cm:
+            events = sb.events(match_id=1, creds={})
+        self.assertEqual(cm.exception.response.status_code, 404)
 
     def test_competition_events(self):
         events = sb.competition_events(
@@ -136,6 +147,10 @@ class TestFrameGetters(TestCase):
 
         frames = sb.frames(match_id=3847567, creds={})
         self.assertIsInstance(frames, pd.DataFrame)
+
+        with self.assertRaises(HTTPError) as cm:
+            frames = sb.frames(match_id=1, creds={})
+        self.assertEqual(cm.exception.response.status_code, 404)
 
     def test_competition_frames(self):
         frames = sb.competition_frames(
