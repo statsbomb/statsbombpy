@@ -28,7 +28,7 @@ else:
 
 VERSIONS = {
     "competitions": "v4",
-    "matches": "v5",
+    "matches": "v6",
     "lineups": "v4",
     "events": "v8",
     "360-frames": "v2",
