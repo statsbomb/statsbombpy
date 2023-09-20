@@ -2,7 +2,7 @@ name: Issue form
 description: Report a bug or request support
 title: "Issue report"
 assignees:
-  - anenglishgoat
+  - scotty779
 body:
   - type: markdown
     attributes:
