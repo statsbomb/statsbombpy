@@ -175,10 +175,11 @@ def frames(
     frames = _360_frames(match_id, creds)
     for frame in frames:
         if "distances_from_edge_of_visible_area" in frame:
-            for ff, d_from_vis_area in zip(
-                frame["freeze_frame"], frame["distances_from_edge_of_visible_area"]
-            ):
-                ff["distance_from_edge_of_visible_area"] = d_from_vis_area["distance"]
+            if frame["distances_from_edge_of_visible_area"] is not None:
+                for ff, d_from_vis_area in zip(
+                    frame["freeze_frame"], frame["distances_from_edge_of_visible_area"]
+                ):
+                    ff["distance_from_edge_of_visible_area"] = d_from_vis_area["distance"]
     keys = ["event_uuid", "visible_area", "match_id", "freeze_frame"]
     frames = [{key: frame[key] for key in keys} for frame in frames]
     if fmt == "dataframe":
