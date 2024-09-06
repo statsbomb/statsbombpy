@@ -2084,6 +2084,7 @@ For customers we also provide aggregated statistics at the player-match, player-
 ```
 player_match = sb.player_match_stats(3772072)
 player_season = sb.player_season_stats(competition_id=9, season_id=42)
+team_match = sb.team_match_stats(3772072)
 team_season = sb.team_season_stats(competition_id=9, season_id=42)
 
 player_match
@@ -2657,6 +2658,8 @@ sb.competition_frames(
 sb.player_match_stats(3772072, fmt="dict")
 
 sb.player_season_stats(competition_id=9, season_id=42, fmt="dict")
+
+sb.team_match_stats(3772072, fmt="dict")
 
 sb.team_season_stats(competition_id=9, season_id=42, fmt="dict")
 

@@ -76,6 +76,11 @@ def player_season_stats(competition_id: int, season_id: int, creds: dict) -> lis
     return get_resource(url, creds)
 
 
+def team_match_stats(match_id: int, creds: dict) -> list:
+    url = f"{HOSTNAME}/api/{VERSIONS['team-match-stats']}/matches/{match_id}/team-stats"
+    return get_resource(url, creds)
+
+
 def team_season_stats(competition_id: int, season_id: int, creds: dict) -> list:
     url = f"{HOSTNAME}/api/{VERSIONS['team-season-stats']}/competitions/{competition_id}/seasons/{season_id}/team-stats"
     return get_resource(url, creds)

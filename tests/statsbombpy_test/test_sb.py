@@ -36,7 +36,7 @@ class TestBaseGetters(TestCase):
         self.assertIsInstance(matches, pd.DataFrame)
 
         matches = sb.matches(competition_id=11, season_id=1)
-        self.assertEquals(
+        self.assertEqual(
             matches.query("match_id == 9695")["away_managers"].iloc[0],
             "Ernesto Valverde Tejedor",
         )
@@ -57,7 +57,7 @@ class TestBaseGetters(TestCase):
         self.assertIsInstance(lineups, dict)
 
         lineups = sb.lineups(match_id=301244)
-        self.assertEquals(
+        self.assertEqual(
             lineups["Stoke City"]["country"].iloc[0],
             "England",
         )
@@ -205,6 +205,17 @@ class TestAggregatedStatsGetters(TestCase):
 
         with self.assertRaises(Exception):
             sb.player_season_stats(competition_id=2, season_id=44, creds={})
+
+    def test_team_match_stats(self):
+        team_match_stats = sb.team_match_stats(match_id=3764302)
+        self.assertIsInstance(team_match_stats, pd.DataFrame)
+
+        team_match_stats = sb.team_match_stats(match_id=3764302, fmt="json")
+        self.assertIsInstance(team_match_stats, list)
+
+        with self.assertRaises(Exception):
+            sb.team_match_stats(match_id=7562, creds={})
+
 
     def test_team_season_stats(self):
         team_season_stats = sb.team_season_stats(competition_id=43, season_id=3)
