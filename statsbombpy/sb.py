@@ -269,6 +269,22 @@ def player_season_stats(
     return player_season_stats
 
 
+def team_match_stats(
+    match_id: int,
+    fmt: str = "dataframe",
+    creds: dict = DEFAULT_CREDS,
+) -> Union[pd.DataFrame, dict]:
+    if api_client.has_auth(creds) is True:
+        team_match_stats = api_client.team_match_stats(match_id, creds=creds)
+    else:
+        raise Exception(
+            "There is currently no open data for aggregated stats, please provide credentials"
+        )
+    if fmt == "dataframe":
+        team_match_stats = pd.json_normalize(team_match_stats)
+    return team_match_stats
+
+
 def team_season_stats(
     competition_id: int,
     season_id: int,

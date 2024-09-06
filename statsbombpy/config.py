@@ -35,4 +35,5 @@ VERSIONS = {
     "player-match-stats": "v4",
     "player-season-stats": "v4",
     "team-season-stats": "v2",
+    "team-match-stats": "v1",
 }
