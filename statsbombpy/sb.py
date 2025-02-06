@@ -77,12 +77,19 @@ def lineups(match_id, fmt="dataframe", creds: dict = DEFAULT_CREDS):
     if fmt == "dataframe":
         lineups_ = {}
         for lineup in lineups.values():
+            formations_ = lineup["formations"]
+
+            events_ = lineup["events"]
+                    
             lineup_ = pd.DataFrame(lineup["lineup"])
             lineup_["country"] = lineup_.country.apply(
-                lambda c: c["name"] if isinstance(c, dict) else "Unknown"
-            )
+                        lambda c: c["name"] if isinstance(c, dict) else "Unknown"
+                    )
+            lineup_["formations"] = str(formations_)
+            lineup_["events"] = str(events_)
             lineups_[lineup["team_name"]] = lineup_
-            lineups = lineups_
+
+        lineups = lineups_
     return lineups
 
 
