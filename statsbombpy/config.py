@@ -29,11 +29,11 @@ else:
 VERSIONS = {
     "competitions": "v4",
     "matches": "v6",
-    "lineups": "v4",
-    "events": "v8",
+    "lineups": "v5",
+    "events": "v9",
     "360-frames": "v2",
     "player-match-stats": "v5",
     "player-season-stats": "v4",
-    "team-season-stats": "v2",
-    "team-match-stats": "v1",
+    "team-season-stats": "v3",
+    "team-match-stats": "v2",
 }
