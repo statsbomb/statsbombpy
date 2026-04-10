@@ -50,19 +50,60 @@ def matches(
             )
             for match in matches
         ]
+
+        def _extract_manager_cols(matches_dict, team_key):
+            prefix = "home_manager" if team_key == "home_team" else "away_manager"
+            rows = []
+            for match in matches_dict.values():
+                managers = match.get(team_key, {}).get("managers", [])
+                if managers:
+                    normalized = pd.json_normalize(managers, sep="_")
+                    if len(normalized) > 1:
+                        row = {
+                            col: ", ".join(normalized[col].dropna().astype(str).tolist())
+                            for col in normalized.columns
+                        }
+                    else:
+                        row = normalized.iloc[0].to_dict()
+                else:
+                    row = {}
+                rows.append(row)
+            return pd.DataFrame(rows).add_prefix(f"{prefix}_")
+
+        home_manager_df = _extract_manager_cols(matches, "home_team")
+        away_manager_df = _extract_manager_cols(matches, "away_team")
+
         matches = pd.DataFrame(matches.values())
-        matches["competition"] = matches.competition.apply(
-            lambda c: f"{c['country_name']} - {c['competition_name']}"
-        )
-        for col in ["season", "home_team", "away_team"]:
-            matches[col] = matches[col].apply(lambda c: c[f"{col}_name"])
+
+        def _normalize_with_prefix(series, prefix):
+            df = pd.json_normalize(series.tolist(), sep="_").add_prefix(f"{prefix}_")
+            double = f"{prefix}_{prefix}_"
+            df.columns = [c.replace(double, f"{prefix}_", 1) if c.startswith(double) else c for c in df.columns]
+            return df
+
+        comp_df = _normalize_with_prefix(matches["competition"], "competition").rename(columns={"competition_name": "competition"})
+        matches = matches.drop(columns=["competition"]).join(comp_df)
+
+        season_df = _normalize_with_prefix(matches["season"], "season").rename(columns={"season_name": "season"})
+        matches = matches.drop(columns=["season"]).join(season_df)
+
+        for col in ["home_team", "away_team"]:
+            team_series = matches[col].apply(lambda t: {k: v for k, v in t.items() if k != "managers"})
+            team_df = _normalize_with_prefix(team_series, col).rename(columns={f"{col}_name": col})
+            matches = matches.drop(columns=[col]).join(team_df)
+
         for col in ["competition_stage", "stadium", "referee"]:
             if col in matches.columns:
-                matches[col] = matches[col].apply(
-                    lambda x: x["name"] if not pd.isna(x) else x
-                )
+                col_series = matches[col].apply(lambda x: x if isinstance(x, dict) else {})
+                expanded = _normalize_with_prefix(col_series, col).rename(columns={f"{col}_name": col})
+                matches = matches.drop(columns=[col]).join(expanded)
+
         matches["home_managers"] = home_managers
         matches["away_managers"] = away_managers
+        for col in home_manager_df.columns:
+            matches[col] = home_manager_df[col].values
+        for col in away_manager_df.columns:
+            matches[col] = away_manager_df[col].values
         metadata = matches.pop("metadata")
         for k in ["data_version", "shot_fidelity_version", "xy_fidelity_version"]:
             matches[k] = metadata.apply(lambda x: x.get(k))
