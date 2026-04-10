@@ -81,7 +81,8 @@ def matches(
             df.columns = [c.replace(double, f"{prefix}_", 1) if c.startswith(double) else c for c in df.columns]
             return df
 
-        comp_df = _normalize_with_prefix(matches["competition"], "competition").rename(columns={"competition_name": "competition"})
+        comp_df = _normalize_with_prefix(matches["competition"], "competition")
+        comp_df["competition"] = comp_df["competition_country_name"] + " - " + comp_df["competition_name"]
         matches = matches.drop(columns=["competition"]).join(comp_df)
 
         season_df = _normalize_with_prefix(matches["season"], "season").rename(columns={"season_name": "season"})
