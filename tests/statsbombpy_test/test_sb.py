@@ -41,6 +41,28 @@ class TestBaseGetters(TestCase):
             "Ernesto Valverde Tejedor",
         )
 
+        matches = sb.matches(competition_id=2, season_id=44, creds={})
+        self.assertFalse(
+            matches.columns.duplicated().any(),
+            "matches() returned duplicate column names",
+        )
+        self.assertIn("competition_name", matches.columns)
+        self.assertIn("competition_country_name", matches.columns)
+        self.assertIn("home_team_id", matches.columns)
+        self.assertIn("away_team_id", matches.columns)
+        self.assertIn("home_team", matches.columns)
+        self.assertIn("away_team", matches.columns)
+        self.assertFalse(matches["competition"].isna().any())
+        self.assertFalse(matches["competition_name"].isna().any())
+        self.assertFalse(matches["home_team_id"].isna().all())
+        self.assertFalse(matches["away_team_id"].isna().all())
+        expected_competition = (
+            matches["competition_country_name"] + " - " + matches["competition_name"]
+        )
+        pd.testing.assert_series_equal(
+            matches["competition"], expected_competition, check_names=False
+        )
+
         with self.assertRaises(HTTPError) as cm:
             matches = sb.matches(competition_id=1, season_id=1, creds={})
         self.assertEqual(cm.exception.response.status_code, 404)
