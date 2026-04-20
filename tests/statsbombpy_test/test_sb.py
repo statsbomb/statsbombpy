@@ -54,8 +54,8 @@ class TestBaseGetters(TestCase):
         self.assertIn("away_team", matches.columns)
         self.assertFalse(matches["competition"].isna().any())
         self.assertFalse(matches["competition_name"].isna().any())
-        self.assertFalse(matches["home_team_id"].isna().all())
-        self.assertFalse(matches["away_team_id"].isna().all())
+        self.assertFalse(matches["home_team_id"].isna().any())
+        self.assertFalse(matches["away_team_id"].isna().any())
         expected_competition = (
             matches["competition_country_name"] + " - " + matches["competition_name"]
         )
