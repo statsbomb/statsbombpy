@@ -4,7 +4,7 @@
 
 Brought to you by StatsBomb, this repository is a Python package that allows users to easily stream StatsBomb data into Python using your log in credentials for the API or free data from our GitHub page. **API access is for paying customers only**
 
-**Support: support@statsbomb.com**
+**Support: [Hudl Support Form](https://support.hudl.com/s/contactsupport?language=en_US&Category=m0HVY000002iydd)**
 
 
 ## Installation Instructions
