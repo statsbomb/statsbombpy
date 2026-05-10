@@ -351,3 +351,79 @@ def team_season_stats(
     if fmt == "dataframe":
         team_season_stats = pd.json_normalize(team_season_stats)
     return team_season_stats
+
+
+def get_possession_sequence(
+    match_id: int,
+    event_id: str,
+    exclude_trigger: bool = True,
+    creds: dict = DEFAULT_CREDS,
+) -> pd.DataFrame:
+    """
+    Return all events in the same possession sequence as the given event.
+
+    Parameters
+    ----------
+    match_id : int
+    event_id : str
+        The ``id`` of any event in the target possession sequence.
+        Typically the goal or significant event that ended the sequence.
+    exclude_trigger : bool
+        When True (default), the event identified by ``event_id`` is
+        excluded from the result. Useful for build-up analysis where the
+        trigger (e.g. a goal) is the endpoint rather than part of the
+        sequence itself.
+    creds : dict
+
+    Returns
+    -------
+    pd.DataFrame
+        Events sorted by (period, timestamp). Empty DataFrame if
+        ``event_id`` is not found in the match.
+    """
+    all_events = events(match_id, flatten_attrs=True, creds=creds)
+    trigger = all_events[all_events["id"] == event_id]
+    if trigger.empty:
+        return pd.DataFrame()
+    possession_id = trigger.iloc[0]["possession"]
+    sequence = all_events[all_events["possession"] == possession_id]
+    if exclude_trigger:
+        sequence = sequence[sequence["id"] != event_id]
+    return sequence.sort_values(["period", "timestamp"]).reset_index(drop=True)
+
+
+def get_prior_possession(
+    match_id: int,
+    event_id: str,
+    creds: dict = DEFAULT_CREDS,
+) -> pd.DataFrame:
+    """
+    Return all events in the possession sequence immediately before the
+    given event's possession.
+
+    Useful for set piece context: when a goal is scored from a penalty,
+    free kick, or corner, the foul or challenge that earned the set piece
+    belongs to the prior possession (``possession - 1``).
+
+    Parameters
+    ----------
+    match_id : int
+    event_id : str
+        The ``id`` of any event in the target possession sequence.
+    creds : dict
+
+    Returns
+    -------
+    pd.DataFrame
+        Events sorted by (period, timestamp). Empty DataFrame if
+        ``event_id`` is not found or there is no prior possession.
+    """
+    all_events = events(match_id, flatten_attrs=True, creds=creds)
+    trigger = all_events[all_events["id"] == event_id]
+    if trigger.empty:
+        return pd.DataFrame()
+    possession_id = trigger.iloc[0]["possession"]
+    if possession_id <= 1:
+        return pd.DataFrame()
+    prior = all_events[all_events["possession"] == possession_id - 1]
+    return prior.sort_values(["period", "timestamp"]).reset_index(drop=True)
