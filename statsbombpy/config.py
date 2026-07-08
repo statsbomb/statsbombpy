@@ -1,7 +1,13 @@
 import multiprocessing
 import os
+from importlib.metadata import PackageNotFoundError, version
 
 CACHED_CALLS_SECS = 600
+
+try:
+    _VERSION = version("statsbombpy")
+except PackageNotFoundError:
+    _VERSION = "unknown"
 
 DEFAULT_CREDS = {
     "user": os.environ.get("SB_USERNAME"),

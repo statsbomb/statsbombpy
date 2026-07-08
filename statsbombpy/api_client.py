@@ -5,7 +5,9 @@ import requests as req
 from requests_cache import install_cache
 
 import statsbombpy.entities as ents
-from statsbombpy.config import CACHED_CALLS_SECS, HOSTNAME, VERSIONS
+from statsbombpy.config import CACHED_CALLS_SECS, HOSTNAME, VERSIONS, _VERSION
+
+HEADERS = {"User-Agent": f"statsbombpy/{_VERSION}"}
 
 install_cache(mkdtemp(), backend="sqlite", expire_after=CACHED_CALLS_SECS)
 
@@ -27,7 +29,7 @@ def has_auth(creds):
 
 def get_resource(url: str, creds: dict) -> list:
     auth = req.auth.HTTPBasicAuth(creds["user"], creds["passwd"])
-    resp = req.get(url, auth=auth)
+    resp = req.get(url, auth=auth, headers=HEADERS)
     if resp.status_code != 200:
         print(f"{url} -> {resp.status_code}")
         resp = []
