@@ -263,5 +263,72 @@ class TestAggregatedStatsGetters(TestCase):
             sb.team_season_stats(competition_id=2, season_id=44, creds={})
 
 
+class TestSequenceGetters(TestCase):
+    # La Liga match used throughout existing tests — known to have shots
+    MATCH_ID = 7562
+
+    def _shot_id_and_possession(self):
+        evs = sb.events(match_id=self.MATCH_ID, flatten_attrs=True)
+        shot = evs[evs["type"] == "Shot"].iloc[0]
+        return shot["id"], int(shot["possession"])
+
+    def test_get_possession_sequence_returns_dataframe(self):
+        shot_id, _ = self._shot_id_and_possession()
+        seq = sb.get_possession_sequence(self.MATCH_ID, shot_id)
+        self.assertIsInstance(seq, pd.DataFrame)
+
+    def test_get_possession_sequence_all_same_possession(self):
+        shot_id, possession_id = self._shot_id_and_possession()
+        seq = sb.get_possession_sequence(self.MATCH_ID, shot_id)
+        self.assertTrue((seq["possession"] == possession_id).all())
+
+    def test_get_possession_sequence_excludes_trigger_by_default(self):
+        shot_id, _ = self._shot_id_and_possession()
+        seq = sb.get_possession_sequence(self.MATCH_ID, shot_id)
+        self.assertNotIn(shot_id, seq["id"].values)
+
+    def test_get_possession_sequence_includes_trigger_when_requested(self):
+        shot_id, _ = self._shot_id_and_possession()
+        seq = sb.get_possession_sequence(
+            self.MATCH_ID, shot_id, exclude_trigger=False
+        )
+        self.assertIn(shot_id, seq["id"].values)
+
+    def test_get_possession_sequence_sorted_by_period_timestamp(self):
+        shot_id, _ = self._shot_id_and_possession()
+        seq = sb.get_possession_sequence(self.MATCH_ID, shot_id)
+        if len(seq) > 1:
+            keys = list(zip(seq["period"], seq["timestamp"]))
+            self.assertEqual(keys, sorted(keys))
+
+    def test_get_possession_sequence_unknown_event_id(self):
+        seq = sb.get_possession_sequence(self.MATCH_ID, "not-a-real-id")
+        self.assertIsInstance(seq, pd.DataFrame)
+        self.assertTrue(seq.empty)
+
+    def test_get_prior_possession_returns_dataframe(self):
+        shot_id, _ = self._shot_id_and_possession()
+        prior = sb.get_prior_possession(self.MATCH_ID, shot_id)
+        self.assertIsInstance(prior, pd.DataFrame)
+
+    def test_get_prior_possession_correct_possession_id(self):
+        shot_id, possession_id = self._shot_id_and_possession()
+        prior = sb.get_prior_possession(self.MATCH_ID, shot_id)
+        if not prior.empty:
+            self.assertTrue((prior["possession"] == possession_id - 1).all())
+
+    def test_get_prior_possession_sorted_by_period_timestamp(self):
+        shot_id, _ = self._shot_id_and_possession()
+        prior = sb.get_prior_possession(self.MATCH_ID, shot_id)
+        if len(prior) > 1:
+            keys = list(zip(prior["period"], prior["timestamp"]))
+            self.assertEqual(keys, sorted(keys))
+
+    def test_get_prior_possession_unknown_event_id(self):
+        prior = sb.get_prior_possession(self.MATCH_ID, "not-a-real-id")
+        self.assertIsInstance(prior, pd.DataFrame)
+        self.assertTrue(prior.empty)
+
+
 if __name__ == "__main__":
     main()
