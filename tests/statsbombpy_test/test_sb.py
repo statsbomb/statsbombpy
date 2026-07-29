@@ -1,8 +1,10 @@
 from unittest import TestCase, main
+from unittest.mock import patch
 
 import pandas as pd
 from requests.exceptions import HTTPError
-from statsbombpy import sb
+from statsbombpy import api_client, sb
+from statsbombpy.config import DEFAULT_CREDS, VERSIONS
 
 
 class TestBaseGetters(TestCase):
@@ -261,6 +263,57 @@ class TestAggregatedStatsGetters(TestCase):
 
         with self.assertRaises(Exception):
             sb.team_season_stats(competition_id=2, season_id=44, creds={})
+
+
+class TestEndpointVersions(TestCase):
+    def setUp(self):
+        # reset the session cache so each test controls the fetch
+        api_client._ENDPOINT_VERSIONS = None
+
+    def tearDown(self):
+        api_client._ENDPOINT_VERSIONS = None
+
+    def test_endpoint_versions_live(self):
+        versions = api_client.endpoint_versions(DEFAULT_CREDS)
+        self.assertIsInstance(versions, dict)
+        self.assertTrue(set(versions).issubset(set(VERSIONS)))
+        for value in versions.values():
+            self.assertTrue(value.startswith("v"))
+
+    def test_fetched_once_per_session(self):
+        raw = {"api_events": 10, "api_competitions": 4}
+        with patch.object(
+            api_client, "get_resource", return_value=raw
+        ) as mocked:
+            first = api_client.endpoint_versions(DEFAULT_CREDS)
+            second = api_client.endpoint_versions(DEFAULT_CREDS)
+        self.assertEqual(mocked.call_count, 1)
+        self.assertEqual(first, {"events": "v10", "competitions": "v4"})
+        self.assertIs(first, second)
+
+    def test_resolve_version_override(self):
+        self.assertEqual(
+            api_client.resolve_version("events", DEFAULT_CREDS, version="v9"),
+            "v9",
+        )
+        self.assertEqual(
+            api_client.resolve_version("events", DEFAULT_CREDS, version=9),
+            "v9",
+        )
+        self.assertEqual(
+            api_client.resolve_version("events", DEFAULT_CREDS, version="9"),
+            "v9",
+        )
+
+    def test_falls_back_to_hardcoded_versions(self):
+        with patch.object(api_client, "get_resource", return_value=[]):
+            versions = api_client.endpoint_versions(DEFAULT_CREDS)
+        self.assertIs(versions, VERSIONS)
+
+    def test_events_with_version_override(self):
+        events = sb.events(match_id=7562, version="v10")
+        self.assertIsInstance(events, pd.DataFrame)
+        self.assertFalse(events.empty)
 
 
 if __name__ == "__main__":
